@@ -12,8 +12,6 @@ namespace RecruitmentApp.Models
         public string Name { get; set; }
         public string Location { get; set; }
         public string ContactInfo { get; set; }
-        public int UserId { get; set; }
-        public User User { get; set; }
         public ICollection<Job> Jobs { get; set; }
         public ICollection<User> Users { get; set; }
     }

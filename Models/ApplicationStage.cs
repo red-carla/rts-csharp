@@ -8,7 +8,7 @@ namespace RecruitmentApp.Models
 {
     public class ApplicationStage
     {
-        public int StageId { get; set; }
-        public string Description { get; set; }
+        public int ApplicationStageId { get; set; }
+        public string ApplicationStageName { get; set; }
     }
 }
