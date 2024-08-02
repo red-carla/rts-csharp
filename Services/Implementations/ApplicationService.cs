@@ -1,4 +1,8 @@
-﻿public class ApplicationService : IApplicationService
+﻿using DefaultNamespace;
+using RecruitmentApp;
+using RecruitmentApp.Data;
+using RecruitmentApp.Models;
+public class ApplicationService : IApplicationService
 {
     private readonly IApplicationRepository _applicationRepository;
 

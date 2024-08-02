@@ -14,7 +14,7 @@ namespace RecruitmentApp.Models
         public int CandidateId { get; set; }
         public Candidate Candidate { get; set; }
 		public int UserId { get; set; }
-		public User User { get; set}
+		public User User { get; set; }
 		public int ApplicationStageId { get; set; }
         public ApplicationStage Stage { get; set; }
         public DateTime CreatedAt { get; set; }

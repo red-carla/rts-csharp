@@ -1,4 +1,6 @@
-﻿namespace DefaultNamespace;
+﻿using RecruitmentApp.Models;
+
+namespace RecruitmentApp;
 
 public interface IUserService
 {
@@ -6,5 +8,6 @@ public interface IUserService
     User GetUserById(int id);
     void CreateUser(User user);
     void UpdateUser(User user);
-    void DeleteUser(int id);   
+    void DeleteUser(int id);
+    User Authenticate(string email, string password);
 }

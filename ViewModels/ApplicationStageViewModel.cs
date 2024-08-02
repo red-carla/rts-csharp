@@ -2,6 +2,10 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using DefaultNamespace;
+using RecruitmentApp;
+using RecruitmentApp.Data;
+using RecruitmentApp.Models;
 
 public class ApplicationStageViewModel : INotifyPropertyChanged
 {

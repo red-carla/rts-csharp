@@ -1,4 +1,8 @@
-﻿public class JobService : IJobService
+﻿using DefaultNamespace;
+using RecruitmentApp;
+using RecruitmentApp.Data;
+using RecruitmentApp.Models;
+public class JobService : IJobService
 {
     private readonly IJobRepository _jobRepository;
 

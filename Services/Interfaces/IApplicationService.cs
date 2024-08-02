@@ -1,4 +1,9 @@
-﻿public interface IApplicationService
+﻿using DefaultNamespace;
+using RecruitmentApp;
+using RecruitmentApp.Data;
+using RecruitmentApp.Models;
+public interface IApplicationService
+   
 {
     IEnumerable<Application> GetAllApplications();
     Application GetApplicationById(int id);

@@ -1,4 +1,9 @@
-﻿public class EmployerRepository : IEmployerRepository
+﻿using DefaultNamespace;
+using RecruitmentApp;
+using RecruitmentApp.Data;
+using RecruitmentApp.Models;
+
+public class EmployerRepository : IEmployerRepository
 {
     private readonly RecruitmentContext _context;
 

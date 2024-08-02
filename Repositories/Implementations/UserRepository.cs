@@ -1,4 +1,8 @@
-﻿public class UserRepository : IUserRepository
+﻿using DefaultNamespace;
+using RecruitmentApp.Data;
+using RecruitmentApp.Models;
+
+public class UserRepository : IUserRepository
 {
     private readonly RecruitmentContext _context;
 
@@ -9,8 +13,19 @@
 
     public IEnumerable<User> GetAll()
     {
-        return _context.Users.ToList();
+        try
+        {
+            return _context.Users.ToList();
+        }
+        catch (Exception ex)
+        {
+            // Log the exception (e.g., to a file, console, etc.)
+            Console.WriteLine(ex.Message);
+            throw; // Re-throw the exception to be handled elsewhere if needed
+        }
+       
     }
+
 
     public User GetById(int id)
     {

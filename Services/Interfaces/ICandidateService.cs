@@ -1,4 +1,8 @@
-﻿public interface ICandidateService
+﻿using DefaultNamespace;
+using RecruitmentApp;
+using RecruitmentApp.Data;
+using RecruitmentApp.Models;
+public interface ICandidateService
 {
     IEnumerable<Candidate> GetAllCandidates();
     Candidate GetCandidateById(int id);

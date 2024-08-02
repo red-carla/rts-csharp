@@ -1,4 +1,9 @@
-﻿public class ApplicationStageRepository : IApplicationStageRepository
+﻿using DefaultNamespace;
+using RecruitmentApp;
+using RecruitmentApp.Data;
+using RecruitmentApp.Models;
+
+public class ApplicationStageRepository : IApplicationStageRepository
 {
     private readonly RecruitmentContext _context;
 

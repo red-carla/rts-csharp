@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RecruitmentApp.Models;
+using Microsoft.Extensions.Configuration;
+using System.Configuration;
 
 namespace RecruitmentApp.Data
 {
@@ -14,7 +16,10 @@ namespace RecruitmentApp.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=.\SQLEXPRESS;Database=recruitmentDB;Trusted_Connection=True;");
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(Configuration.GetConnectionString("RecruitmentContext"));
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -56,9 +61,33 @@ namespace RecruitmentApp.Data
                 .WithOne(a => a.Job)
                 .HasForeignKey(a => a.JobId)
                 .OnDelete(DeleteBehavior.Cascade);
-            
-            
+
+            modelBuilder.Entity<User>().HasData(
+            new User
+            {
+                UserId = 1010,
+                Email = "test@example.com",
+                Password = "testpassword",
+                EmployerId = 1,
+                Avatar = "https://robohash.org/magnicorporispariatur.png?size=50x50&set=set1",
+                FirstName = "test",
+                LastName = "test",
+                Role = "test",
+                IsAdmin = true
+            }
+        );
+
+            modelBuilder.Entity<Employer>().HasData(
+                new Employer
+                {
+                    EmployerId = 10,
+                    Name = "Test Employer",
+                    ContactInfo = "test@example.com",
+                    Location = "Singapore"
+                }
+            );
         }
+
     }
 }
 

@@ -1,4 +1,8 @@
-﻿public class CandidateService : ICandidateService
+﻿using DefaultNamespace;
+using RecruitmentApp;
+using RecruitmentApp.Data;
+using RecruitmentApp.Models;
+public class CandidateService : ICandidateService
 {
     private readonly ICandidateRepository _candidateRepository;
 

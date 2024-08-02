@@ -1,4 +1,9 @@
-﻿public class UserService : IUserService
+﻿using RecruitmentApp;
+using RecruitmentApp.Models;
+using RecruitmentApp.Data;
+using DefaultNamespace;
+
+public class UserService : IUserService
 {
     private readonly IUserRepository _userRepository;
 
@@ -30,5 +35,13 @@
     public void DeleteUser(int id)
     {
         _userRepository.Delete(id);
+    }
+    public User Authenticate(string email, string password)
+    {
+        var user = _userRepository.GetAll().FirstOrDefault(u => u.Email == email && u.Password == password);
+        return user;
+
+       /* var user = _userRepository.GetAll().FirstOrDefault(u => u.Email == email && u.Password == password);
+        return user;*/
     }
 }

@@ -1,4 +1,5 @@
 ﻿namespace DefaultNamespace;
+using RecruitmentApp.Models;
 
 public interface IUserRepository
 {

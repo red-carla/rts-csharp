@@ -14,9 +14,12 @@ namespace RecruitmentApp.Models
         public string Role { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public bit IsAdmin { get; set; }
+        public bool IsAdmin { get; set; }
         public string Avatar { get; set; }
         public int EmployerId { get; set; }
-        public ICollection<Employer> Employers { get; set; }
+        public Employer Employer { get; set; }
+
+        public ICollection<Job> Jobs { get; set; }
+        public ICollection<Application> Applications { get; set; }
     }
 }

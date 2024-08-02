@@ -1,4 +1,8 @@
-﻿public interface IEmployerService
+﻿using DefaultNamespace;
+using RecruitmentApp;
+using RecruitmentApp.Data;
+using RecruitmentApp.Models;
+public interface IEmployerService
 {
     IEnumerable<Employer> GetAllEmployers();
     Employer GetEmployerById(int id);

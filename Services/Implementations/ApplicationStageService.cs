@@ -1,4 +1,8 @@
-﻿public class ApplicationStageService : IApplicationStageService
+﻿using DefaultNamespace;
+using RecruitmentApp;
+using RecruitmentApp.Data;
+using RecruitmentApp.Models;
+public class ApplicationStageService : IApplicationStageService
 {
     private readonly IApplicationStageRepository _applicationStageRepository;
 

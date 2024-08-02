@@ -10,6 +10,7 @@ namespace RecruitmentApp.Models
     {
         public int JobId { get; set; }
         public int UserId { get; set; }
+        public User User { get; set; }
         public string JobTitle { get; set; }
         public string Description { get; set; }
         public string JobStatus { get; set; }

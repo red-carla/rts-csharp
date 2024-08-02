@@ -1,4 +1,6 @@
-﻿public interface IJobService
+﻿using RecruitmentApp.Models;
+
+public interface IJobService
 {
     IEnumerable<Job> GetAllJobs();
     Job GetJobById(int id);

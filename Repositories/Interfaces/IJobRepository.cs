@@ -1,4 +1,6 @@
-﻿namespace DefaultNamespace;
+﻿using RecruitmentApp.Models;
+
+namespace DefaultNamespace;
 
 public interface IJobRepository
 {
