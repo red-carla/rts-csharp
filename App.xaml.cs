@@ -26,7 +26,12 @@ namespace RTS
         {
             return Host.CreateDefaultBuilder(args)
                 .AddDbContext()
-                .AddConfiguration();
+                .AddConfiguration()
+                .AddServices()
+                .AddViews()
+                .AddStores()
+                .AddViewModels()
+                .AddDbContext();
         }
 
         protected override void OnStartup(StartupEventArgs e)
@@ -38,8 +43,18 @@ namespace RTS
             {
                 context.Database.Migrate();
             }
-        }
-           
-    }
 
+            MainWindow = _host.Services.GetRequiredService<MainWindow>();
+            MainWindow.Show();
+
+            base.OnStartup(e);
+        }
+        protected override async void OnExit(ExitEventArgs e)
+        {
+            await _host.StopAsync();
+            _host.Dispose();
+
+            base.OnExit(e);
+        }
+    }
 }

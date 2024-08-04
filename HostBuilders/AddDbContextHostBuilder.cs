@@ -12,12 +12,13 @@ public static class AddDbContextHostBuilder
     {
         hostBuilder.ConfigureServices((context, services) =>
         {
-            string connectionString = context.Configuration.GetConnectionString("SqlServer");
-            services.AddDbContext<RecruitmentDbContext>(options =>
-            {
-                options.UseSqlServer(connectionString);
+            string connectionString = context.Configuration.GetConnectionString("sqlserver");
+            Action<DbContextOptionsBuilder> configureDbContext = o => o.UseSqlServer(connectionString);
+            
+            services.AddDbContext<RecruitmentDbContext>(configureDbContext);
+            services.AddSingleton<RecruitmentDbContextFactory>(new RecruitmentDbContextFactory(configureDbContext));
             });
-        });
+       
 
         return hostBuilder;
     }
