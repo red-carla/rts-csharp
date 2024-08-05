@@ -5,7 +5,7 @@ using RTS.Services.Interfaces;
 
 namespace RTS.Services;
 
-public class DataService<T> : IDataService<T> where T : DomainObject
+public class DataService<T> : IDataService<T> where T : BaseEntity
 {
     private readonly RecruitmentDbContextFactory _recruitmentDbContextFactory;
 

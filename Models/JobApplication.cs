@@ -1,11 +1,25 @@
-﻿namespace RTS.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class JobApplication : DomainObject  
+namespace RTS.Models;
+
+public class JobApplication : BaseEntity
 {
-    public DateTime DateApplied { get; set; }
-    public DateTime DateUpdated { get; set; }
-    public Candidate Candidate { get; set; }
-    public Vacancy Vacancy { get; set; }
-    public ApplicationStage JobStage { get; set; }
+    [ForeignKey("Vacancy")] public int VacancyId { get; set; }
+
+    public virtual Vacancy Vacancy { get; set; } = null!;
+
+    [ForeignKey("Candidate")] public int CandidateId { get; set; }
+
+    public virtual Candidate Candidate { get; set; } = null!;
+
+    [ForeignKey("ApplicationStage")] public int ApplicationStageId { get; set; }
+
+    public virtual ApplicationStage ApplicationStage { get; set; } = null!;
     
+    [Required] public DateTime? CreatedAt { get; set; }
+
+    [Required] public DateTime? UpdatedAt { get; set; }
+
 }
+

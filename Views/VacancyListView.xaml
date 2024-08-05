@@ -8,5 +8,22 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <TextBlock Text="Vacancy List" />
+        <ListView ItemsSource="{Binding Vacancies}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="ID">
+                    <GridViewColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Id}"/>
+                        </DataTemplate>
+                    </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}" />
+                    <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </UserControl>
+
+

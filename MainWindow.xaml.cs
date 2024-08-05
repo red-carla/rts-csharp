@@ -13,6 +13,7 @@ namespace RTS
 
         public MainWindow(object dataContext)
         {
+            
              InitializeComponent();
             DataContext = dataContext;
            

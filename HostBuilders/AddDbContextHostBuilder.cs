@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using RTS.EntityFramework;
 
 namespace RTS.HostBuilders;
@@ -12,12 +13,18 @@ public static class AddDbContextHostBuilder
     {
         hostBuilder.ConfigureServices((context, services) =>
         {
-            string connectionString = context.Configuration.GetConnectionString("sqlserver");
-            Action<DbContextOptionsBuilder> configureDbContext = o => o.UseSqlServer(connectionString);
+            string connectionString = context.Configuration.GetConnectionString("SqlServer");
+            Action<DbContextOptionsBuilder> configureDbContext = o =>
+            {
+                o.UseSqlServer(connectionString);
+                o.EnableSensitiveDataLogging();
+            };
             
             services.AddDbContext<RecruitmentDbContext>(configureDbContext);
             services.AddSingleton<RecruitmentDbContextFactory>(new RecruitmentDbContextFactory(configureDbContext));
-            });
+
+            services.AddLogging(builder => builder.AddConsole());
+        });
        
 
         return hostBuilder;

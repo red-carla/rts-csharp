@@ -31,7 +31,7 @@ namespace RTS
                 .AddViews()
                 .AddStores()
                 .AddViewModels()
-                .AddDbContext();
+                .AddDatabaseSeeder();
         }
 
         protected override void OnStartup(StartupEventArgs e)
@@ -41,6 +41,7 @@ namespace RTS
                 _host.Services.GetRequiredService<RecruitmentDbContextFactory>();
             using (RecruitmentDbContext context = contextFactory.CreateDbContext())
             {
+                
                 context.Database.Migrate();
             }
 
