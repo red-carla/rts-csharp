@@ -12,7 +12,7 @@ public class RecruitmentDbContext : DbContext
     public virtual DbSet<Vacancy> Vacancies { get; set; } = null!;
     public virtual DbSet<ApplicationStage> ApplicationStages { get; set; } = null!;
     public virtual DbSet<JobApplication> JobApplications { get; set; } = null!;
-
+    public DbSet<SeedHistory> SeedHistory { get; set; }
 
     public RecruitmentDbContext(DbContextOptions<RecruitmentDbContext> options) : base(options)
     {

@@ -4,9 +4,24 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:RTS.Views"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <TextBlock Text="Application List" />
+        <ListView  ItemsSource="{Binding JobApplications}" SelectedItem="{Binding SelectedApplication}" SelectionMode="Single">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding OpenDetailCommand}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers> <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" />
+                    <GridViewColumn Header="VacancyId" DisplayMemberBinding="{Binding VacancyId }" />
+                    <GridViewColumn Header="DateCreated" DisplayMemberBinding="{Binding CreatedAt}" />
+                    <GridViewColumn Header="UpdatedAt" DisplayMemberBinding="{Binding UpdatedAt}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </UserControl>

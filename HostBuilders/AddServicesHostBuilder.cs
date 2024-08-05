@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using RTS.Models;
 using RTS.Services;
@@ -13,6 +14,8 @@ public static class AddServicesHostBuilder
         host.ConfigureServices(services =>
         {
             services.AddSingleton<IDataService<Vacancy>, DataService<Vacancy>>();
+            services.AddSingleton<IDataService<JobApplication>, DataService<JobApplication>>();
+            services.AddSingleton<IDataService<Candidate>, DataService<Candidate>>();
             
         });
         

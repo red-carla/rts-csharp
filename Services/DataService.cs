@@ -23,12 +23,18 @@ public class DataService<T> : IDataService<T> where T : BaseEntity
         }
     }
 
-    public async Task<T> GetById(int id)
+    public async Task<T> GetById(int id, Func<IQueryable<T>, IQueryable<T>> include = null)
     {
         using (RecruitmentDbContext context = _recruitmentDbContextFactory.CreateDbContext())
         {
-            T entity = await context.Set<T>().FirstOrDefaultAsync((e) => e.Id == id);
-            return entity;
+            IQueryable<T> query = context.Set<T>();
+
+            if (include != null)
+            {
+                query = include(query);
+            }
+
+            return await query.FirstOrDefaultAsync(e => EF.Property<int>(e, "Id") == id);
         }
     }
 

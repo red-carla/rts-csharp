@@ -17,6 +17,9 @@ namespace RTS.HostBuilders
                 services.AddTransient<VacancyListViewModel>();
                 services.AddTransient<ApplicationListViewModel>();
                 services.AddTransient<CandidateListViewModel>();
+                services.AddTransient<ApplicationDetailViewModel>();
+                services.AddTransient<CandidateDetailViewModel>();
+                services.AddTransient<VacancyDetailViewModel>();
                 
                 services.AddSingleton<CreateViewModel<HomeViewModel>>(s =>
                     s.GetRequiredService<HomeViewModel>);
@@ -24,8 +27,14 @@ namespace RTS.HostBuilders
                     s.GetRequiredService<VacancyListViewModel>);
                 services.AddSingleton<CreateViewModel<ApplicationListViewModel>>(s =>
                     s.GetRequiredService<ApplicationListViewModel>);
+                services.AddSingleton<CreateViewModel<ApplicationDetailViewModel>>(s =>
+                    s.GetRequiredService<ApplicationDetailViewModel>);
                 services.AddSingleton<CreateViewModel<CandidateListViewModel>>(s =>
                     s.GetRequiredService<CandidateListViewModel>);
+                services.AddSingleton<CreateViewModel<CandidateDetailViewModel>>(s =>
+                    s.GetRequiredService<CandidateDetailViewModel>);
+                services.AddSingleton<CreateViewModel<VacancyDetailViewModel>>(s =>
+                    s.GetRequiredService<VacancyDetailViewModel>);
                 
                 services.AddSingleton<IViewModelFactory, ViewModelFactory>();
                 services.AddSingleton<MainViewModel>(s => new MainViewModel(

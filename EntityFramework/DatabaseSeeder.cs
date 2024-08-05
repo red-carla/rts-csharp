@@ -2,7 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 namespace RTS.EntityFramework;
-
+public class SeedHistory
+{
+    public int Id { get; set; }
+    public string? SeedName { get; set; }
+    public DateTime SeedDate { get; set; }
+}
 public class DatabaseSeeder
 {
     private readonly RecruitmentDbContext _context;
@@ -18,12 +23,27 @@ public class DatabaseSeeder
     {
         try
         {
-            ExecuteSqlFile("recruitmentDBInsertFINAL.sql");
+            if (!IsDatabaseSeeded())
+            {
+                ExecuteSqlFile("recruitmentDBInsertFINAL.sql");
+                MarkDatabaseAsSeeded();
+            }
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "An error occurred while seeding the database.");
         }
+    }
+    private bool IsDatabaseSeeded()
+    {
+        return _context.SeedHistory.Any(sh => sh.SeedName == "InitialSeed");
+    }
+
+    private void MarkDatabaseAsSeeded()
+    {
+      
+        _context.SeedHistory.Add(new SeedHistory { SeedName = "InitialSeed", SeedDate = DateTime.UtcNow });
+        _context.SaveChanges();
     }
 
     private void ExecuteSqlFile(string filePath)
@@ -34,4 +54,5 @@ public class DatabaseSeeder
         transaction.Commit();
         _logger.LogInformation("SQL file executed successfully.");
     }
+   
 }
