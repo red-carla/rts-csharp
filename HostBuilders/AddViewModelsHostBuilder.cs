@@ -1,9 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using RTS.Models;
-using RTS.Services.Interfaces;
+using RTS.State.Navigators;
 using RTS.ViewModels;
-using RTS.ViewModels.Navigators;
 
 namespace RTS.HostBuilders
 {
@@ -44,6 +42,6 @@ namespace RTS.HostBuilders
 
             return host;
         }
-        
+     
     }
 }

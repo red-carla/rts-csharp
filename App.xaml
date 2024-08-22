@@ -2,26 +2,34 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:RTS"
+            
              xmlns:viewmodels="clr-namespace:RTS.ViewModels"
              xmlns:views="clr-namespace:RTS.Views">
     <Application.Resources>
-        <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
-            <views:HomeView />
-        </DataTemplate>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            
+            <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
+                <views:HomeView />
+            </DataTemplate>
 
-        <DataTemplate DataType="{x:Type viewmodels:VacancyListViewModel}">
-            <views:VacancyListView />
-        </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:VacancyListViewModel}">
+                <views:VacancyListView />
+            </DataTemplate>
 
-        <DataTemplate DataType="{x:Type viewmodels:ApplicationListViewModel}">
-            <views:ApplicationListView />
-        </DataTemplate>
-
-
-        <DataTemplate DataType="{x:Type viewmodels:CandidateListViewModel}">
-            <views:CandidateListView />
-        </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:ApplicationListViewModel}">
+                <views:ApplicationListView />
+            </DataTemplate>
 
 
+            <DataTemplate DataType="{x:Type viewmodels:CandidateListViewModel}">
+                <views:CandidateListView />
+            </DataTemplate>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

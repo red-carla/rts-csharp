@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
+using RTS.State.Navigators;
 using RTS.ViewModels;
-using RTS.ViewModels.Navigators;
 
 namespace RTS.Commands;
 

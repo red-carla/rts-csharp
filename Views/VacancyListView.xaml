@@ -6,35 +6,42 @@
              xmlns:local="clr-namespace:RTS.Views"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <TextBlock Text="Vacancy List" />
-        <ListView ItemsSource="{Binding Vacancies}"  SelectedItem="{Binding SelectedVacancy}" SelectionMode="Single">
+            d:DesignHeight="500" d:DesignWidth="1000">
+    <Grid> 
+        <Grid>
+             <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+           
+            <StackPanel Grid.Column="0" Background="#f4f4f4" Margin="5,5,5,5">
+                <TextBlock Text="Filters" FontWeight="Bold" Margin="0 0 0 10" Padding="5,5,5,0"/>
+                <TextBox Text="{Binding Filter1, UpdateSourceTrigger=PropertyChanged}" Margin="0 0 0 10"/>
+                <Button Content="Apply Filters" />
+
+            </StackPanel>
+    
+ 
+            <DataGrid Grid.Column="1"  HeadersVisibility="All" AutoGenerateColumns="False" ItemsSource="{Binding VacanciesView}" SelectedItem="{Binding SelectedVacancy}" SelectionMode="Single" HorizontalContentAlignment="Center" FontSize="14" FontStretch="ExtraExpanded" VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True" Margin="10">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
                     <i:InvokeCommandAction Command="{Binding OpenDetailCommand}" />
                 </i:EventTrigger>
-            </i:Interaction.Triggers> <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="ID">
-                    <GridViewColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Id}"/>
-                        </DataTemplate>
-                    </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                    <GridViewColumn Header="Title" DisplayMemberBinding="{Binding JobTitle}" />
-                    <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}" />
-                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" />
-                    <GridViewColumn Header="Date Posted" DisplayMemberBinding="{Binding DatePosted}" />
-                    <GridViewColumn Header="Required Level of Education" DisplayMemberBinding="{Binding EducationReq}" />
-                    <GridViewColumn Header="Required Experience in Years" DisplayMemberBinding="{Binding ExperienceReq}" />
-                    <GridViewColumn Header="City" DisplayMemberBinding="{Binding Location}" />
-                    <GridViewColumn Header="Duration" DisplayMemberBinding="{Binding EmploymentType}" />
-                </GridView>
-            </ListView.View>
-        </ListView>
+            </i:Interaction.Triggers>
+                <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding JobTitle}" Header="Job Title" ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}" IsReadOnly="True" Width="100" />
+                <DataGridTextColumn Binding="{Binding Status}" Header="Status" ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}" IsReadOnly="True" Width="50"/>
+                <DataGridTextColumn Binding="{Binding DatePosted}" Header="Date Posted" ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding EducationReq}" Header="Education" ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding ExperienceReq}" Header="Years of Experience" ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding Location}" Header="Location" ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding EmploymentType}" Header="Contract Type" ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}" IsReadOnly="True" />
+           <DataGridTextColumn Binding="{Binding Description}" Header="Job Description" ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}" IsReadOnly="True" /> 
+            </DataGrid.Columns>
+        </DataGrid>
+            </Grid>
     </Grid>
+
 </UserControl>
 
 

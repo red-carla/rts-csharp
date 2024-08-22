@@ -1,4 +1,6 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Windows.Data;
 using System.Windows.Input;
 using RTS.Commands;
 using RTS.Models;
@@ -10,6 +12,7 @@ namespace RTS.ViewModels;
 public class VacancyListViewModel : ViewModelBase
 {
     public ICommand OpenDetailCommand { get; private set; }
+    public ICommand ApplyFilterCommand { get; private set; }
     private Vacancy _selectedVacancy;
     public Vacancy SelectedVacancy
     {
@@ -23,11 +26,26 @@ public class VacancyListViewModel : ViewModelBase
     
     private readonly IDataService<Vacancy> _vacancyDataService;
     public ObservableCollection<Vacancy> Vacancies { get; private set; }
+    public ICollectionView VacanciesView { get; }
+
+    private string _filter1 = string.Empty;
+    public string Filter1
+    {
+        get => _filter1;
+        set
+        {
+            _filter1 = value;
+            OnPropertyChanged(nameof(Filter1));
+            VacanciesView.Refresh();
+        }
+    }
 
     public VacancyListViewModel(IDataService<Vacancy> vacancyDataService)
     {
         _vacancyDataService = vacancyDataService;
         Vacancies = new ObservableCollection<Vacancy>();
+        VacanciesView = CollectionViewSource.GetDefaultView(Vacancies);
+        VacanciesView.Filter = FilterVacancies;
         OpenDetailCommand = new RelayCommand(OpenDetailExecute, OpenDetailCanExecute);
         LoadVacancies();
     }
@@ -55,4 +73,15 @@ public class VacancyListViewModel : ViewModelBase
             Vacancies.Add(vacancy);
         }
     }
+
+    private bool FilterVacancies(object item)
+    {
+        if (item is Vacancy vacancy)
+        {
+            return vacancy.JobTitle.Contains(Filter1, StringComparison.InvariantCultureIgnoreCase);
+    
+        }
+        return false;
+    }
+
 }

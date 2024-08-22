@@ -1,4 +1,6 @@
-﻿namespace RTS.ViewModels.Navigators
+﻿using RTS.ViewModels;
+
+namespace RTS.State.Navigators
 {
     public class Navigator : INavigator
     {
@@ -17,5 +19,7 @@
         }
 
         public event Action StateChanged;
+
+     
     }
 }

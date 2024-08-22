@@ -16,6 +16,7 @@ public static class AddServicesHostBuilder
             services.AddSingleton<IDataService<Vacancy>, DataService<Vacancy>>();
             services.AddSingleton<IDataService<JobApplication>, DataService<JobApplication>>();
             services.AddSingleton<IDataService<Candidate>, DataService<Candidate>>();
+            services.AddSingleton<IDataService<Recruiter>, DataService<Recruiter>>();
             
         });
         

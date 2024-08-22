@@ -1,4 +1,6 @@
-﻿namespace RTS.ViewModels.Navigators
+﻿using RTS.ViewModels;
+
+namespace RTS.State.Navigators
 {
     public enum ViewType
     {
@@ -15,4 +17,5 @@
         ViewModelBase CurrentViewModel { get; set; }
         event Action StateChanged;
     }
+
 }

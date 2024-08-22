@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RTS.EntityFramework;
 using RTS.HostBuilders;
+using RTS.ViewModels;
+using RTS.Views;
 
 namespace RTS
 {
@@ -26,17 +28,19 @@ namespace RTS
         {
             return Host.CreateDefaultBuilder(args)
                 .AddDbContext()
+                .AddDatabaseSeeder()
                 .AddConfiguration()
                 .AddServices()
-                .AddViews()
                 .AddStores()
                 .AddViewModels()
-                .AddDatabaseSeeder();
+                .AddViews();
+               
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
             _host.Start();
+
             RecruitmentDbContextFactory contextFactory =
                 _host.Services.GetRequiredService<RecruitmentDbContextFactory>();
             using (RecruitmentDbContext context = contextFactory.CreateDbContext())

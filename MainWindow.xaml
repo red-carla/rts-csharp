@@ -6,18 +6,19 @@
         xmlns:local="clr-namespace:RTS"
         xmlns:controls="clr-namespace:RTS.Controls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="MainWindow" Height="600" Width="1000"
         >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-         
-            <controls:NavigationBar/>
+        <TextBlock Grid.Row="0" Text="Welcome" FontSize="22" FontFamily="Segoe UI Variable Display Semibold" LineHeight="22" Padding="10" />
+        <controls:NavigationBar Grid.Row="1"/>
       
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-            <ContentControl Content="{Binding CurrentViewModel}"/>
+        <ScrollViewer Grid.Row="2">
+            <ContentControl Content="{Binding CurrentViewModel}" ScrollViewer.CanContentScroll="True" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
         </ScrollViewer>
     </Grid>
 </Window>

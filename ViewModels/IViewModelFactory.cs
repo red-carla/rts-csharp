@@ -1,4 +1,4 @@
-﻿using RTS.ViewModels.Navigators;
+﻿using RTS.State.Navigators;
 
 namespace RTS.ViewModels;
 

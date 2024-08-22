@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using RTS.ViewModels.Navigators;
+using RTS.State.Navigators;
 
 namespace RTS.HostBuilders;
 

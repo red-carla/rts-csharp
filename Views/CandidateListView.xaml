@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:RTS.Views"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+ d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <TextBlock Text="Candidate List" />
         <ListView ItemsSource="{Binding Candidates}" SelectedItem="{Binding SelectedCandidate}" SelectionMode="Single">

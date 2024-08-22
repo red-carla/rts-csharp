@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 using RTS.Commands;
-using RTS.ViewModels.Navigators;
+using RTS.State.Navigators;
 
 namespace RTS.ViewModels;
 
@@ -20,7 +20,6 @@ public class MainViewModel : ViewModelBase
 
         _navigator.StateChanged += Navigator_StateChanged;
 
-
         UpdateCurrentViewModelCommand = new UpdateCurrentViewModelCommand(navigator, _viewModelFactory);
     }
 
@@ -29,11 +28,10 @@ public class MainViewModel : ViewModelBase
     {
         OnPropertyChanged(nameof(CurrentViewModel));
     }
-
+   
     public override void Dispose()
     {
         _navigator.StateChanged -= Navigator_StateChanged;
-
 
         base.Dispose();
     }
