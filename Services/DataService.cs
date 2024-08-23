@@ -1,12 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RTS.EntityFramework;
 using RTS.Models;
-using RTS.Services.Interfaces;
 
 namespace RTS.Services;
 
+
+
 public class DataService<T> : IDataService<T> where T : BaseEntity
 {
+
+   // public event Action<T> EntityCreated;
+    
     private readonly RecruitmentDbContextFactory _recruitmentDbContextFactory;
 
     public DataService(RecruitmentDbContextFactory recruitmentDbContextFactory)
@@ -44,6 +48,8 @@ public class DataService<T> : IDataService<T> where T : BaseEntity
         {
             await context.Set<T>().AddAsync(entity);
             await context.SaveChangesAsync();
+            
+           // EntityCreated?.Invoke(entity);
             return entity;
         }
     }

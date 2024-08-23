@@ -1,33 +1,29 @@
 ﻿using System.Collections.ObjectModel;
 using RTS.Models;
-using RTS.Services.Interfaces;
+using RTS.Services;
 
-namespace RTS.ViewModels;
-
-public class VacancyDetailViewModel : ViewModelBase
-
+namespace RTS.ViewModels
 {
-    private readonly IDataService<Vacancy> _dataService;
-    private Vacancy _vacancy;
+    public class VacancyDetailViewModel : ViewModelBase
 
-    public Vacancy Vacancy
     {
-        get => _vacancy;
-        set
+        private readonly Vacancy _vacancy;
+
+        public string JobTitle => _vacancy.JobTitle;
+
+        public string Description => _vacancy.Description;
+
+        /*public string Location => _vacancy.Location;
+        public string EmploymentType => _vacancy.EmploymentType;
+        public string EducationReq => _vacancy.EducationReq;
+        public string ExperienceReq => _vacancy.ExperienceReq;*/
+        public string Status => _vacancy.Status;
+        /*public string DatePosted => _vacancy.DatePosted.ToString();*/
+
+
+        public VacancyDetailViewModel(Vacancy vacancy)
         {
-            _vacancy = value;
-            OnPropertyChanged(nameof(Vacancy));
+            _vacancy = vacancy;
         }
-    }
-
-    public VacancyDetailViewModel(IDataService<Vacancy> dataService)
-    {
-        _dataService = dataService;
-    }
-
-    public async Task LoadVacancyDetails(int vacancyId)
-    {
-        Vacancy = await _dataService.GetById(vacancyId);
-        OnPropertyChanged(nameof(Vacancy));
     }
 }

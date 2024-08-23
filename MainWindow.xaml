@@ -4,21 +4,45 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RTS"
-        xmlns:controls="clr-namespace:RTS.Controls"
+        xmlns:components="clr-namespace:RTS.Components"
+        xmlns:custom="clr-namespace:ModalControl;assembly=ModalControl"
+        xmlns:viewmodels="clr-namespace:RTS.ViewModels"
+        xmlns:views="clr-namespace:RTS.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1000"
-        >
+        Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="Welcome" FontSize="22" FontFamily="Segoe UI Variable Display Semibold" LineHeight="22" Padding="10" />
-        <controls:NavigationBar Grid.Row="1"/>
-      
-        <ScrollViewer Grid.Row="2">
-            <ContentControl Content="{Binding CurrentViewModel}" ScrollViewer.CanContentScroll="True" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
-        </ScrollViewer>
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
+                <views:HomeView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:AccountViewModel}">
+                <views:AccountView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
+                <views:LoginView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:CandidateListingViewModel}">
+                <views:CandidateListingView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:VacancyListingViewModel}">
+                <views:VacancyListingView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:AddCandidateViewModel}">
+                <views:AddCandidateView />
+            </DataTemplate> 
+            <DataTemplate DataType="{x:Type viewmodels:AddVacancyViewModel}">
+                <views:AddVacancyView />
+            </DataTemplate>
+           
+            <DataTemplate DataType="{x:Type viewmodels:LayoutViewModel}">
+                <components:Layout />
+            </DataTemplate>
+        </Grid.Resources>
+
+        <custom:Modal Panel.ZIndex="1" IsOpen="{Binding IsOpen}">
+            <ContentControl Content="{Binding CurrentModalViewModel}" />
+        </custom:Modal>
+
+        <ContentControl Content="{Binding CurrentViewModel}" />
     </Grid>
 </Window>

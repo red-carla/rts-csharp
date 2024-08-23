@@ -3,7 +3,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using RTS.Models;
 using RTS.Services;
-using RTS.Services.Interfaces;
 
 namespace RTS.HostBuilders;
 

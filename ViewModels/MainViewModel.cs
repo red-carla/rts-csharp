@@ -1,38 +1,37 @@
-﻿using System.Windows.Input;
-using RTS.Commands;
-using RTS.State.Navigators;
+﻿using RTS.Stores;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace RTS.ViewModels;
-
-public class MainViewModel : ViewModelBase
+namespace RTS.ViewModels
 {
-    private readonly IViewModelFactory _viewModelFactory;
-    private readonly INavigator _navigator;
-
-    public ViewModelBase CurrentViewModel => _navigator.CurrentViewModel;
-
-    public ICommand UpdateCurrentViewModelCommand { get; }
-
-    public MainViewModel(INavigator navigator, IViewModelFactory viewModelFactory)
+    public class MainViewModel : ViewModelBase
     {
-        _navigator = navigator;
-        _viewModelFactory = viewModelFactory;
+        private readonly NavigationStore _navigationStore;
+        private readonly ModalNavigationStore _modalNavigationStore;
 
-        _navigator.StateChanged += Navigator_StateChanged;
+        public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
+        public ViewModelBase CurrentModalViewModel => _modalNavigationStore.CurrentViewModel;
+        public bool IsOpen => _modalNavigationStore.IsOpen;
 
-        UpdateCurrentViewModelCommand = new UpdateCurrentViewModelCommand(navigator, _viewModelFactory);
-    }
+        public MainViewModel(NavigationStore navigationStore, ModalNavigationStore modalNavigationStore)
+        {
+            _navigationStore = navigationStore;
+            _modalNavigationStore = modalNavigationStore;
 
+            _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
+            _modalNavigationStore.CurrentViewModelChanged += OnCurrentModalViewModelChanged;
+        }
 
-    private void Navigator_StateChanged()
-    {
-        OnPropertyChanged(nameof(CurrentViewModel));
-    }
-   
-    public override void Dispose()
-    {
-        _navigator.StateChanged -= Navigator_StateChanged;
+        private void OnCurrentViewModelChanged()
+        {
+            OnPropertyChanged(nameof(CurrentViewModel));
+        }
 
-        base.Dispose();
+        private void OnCurrentModalViewModelChanged()
+        {
+            OnPropertyChanged(nameof(CurrentModalViewModel));
+            OnPropertyChanged(nameof(IsOpen));
+        }
     }
 }
