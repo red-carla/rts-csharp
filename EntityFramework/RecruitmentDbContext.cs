@@ -6,7 +6,7 @@ namespace RTS.EntityFramework;
 
 public class RecruitmentDbContext : DbContext
 {
-    public virtual DbSet<Employer> Employers { get; set; } = null!;
+   
     public virtual DbSet<Recruiter> Recruiters { get; set; } = null!;
     public virtual DbSet<Candidate> Candidates { get; set; } = null!;
     public virtual DbSet<Vacancy> Vacancies { get; set; } = null!;
@@ -16,12 +16,11 @@ public class RecruitmentDbContext : DbContext
 
     public RecruitmentDbContext(DbContextOptions<RecruitmentDbContext> options) : base(options)
     {
-   
     }
    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Employer>(entity =>
+        /*modelBuilder.Entity<Employer>(entity =>
         {
             entity.ToTable("Employer");
 
@@ -35,7 +34,7 @@ public class RecruitmentDbContext : DbContext
             entity.Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(100);
-        });
+        });*/
         modelBuilder.Entity<Recruiter>(entity =>
         {
             entity.ToTable("Recruiter");
@@ -50,11 +49,13 @@ public class RecruitmentDbContext : DbContext
             entity.Property(e => e.Name).HasMaxLength(100);
 
             entity.Property(e => e.PasswordHash).HasMaxLength(255);
+            
+            entity.Property(e => e.RandomId).HasMaxLength(255);
 
-            entity.HasOne(d => d.Employer)
+            /*entity.HasOne(d => d.Employer)
                 .WithMany(p => p.Recruiters)
                 .HasForeignKey(d => d.EmployerId)
-                .HasConstraintName("FK_Recruiter_Employer");
+                .HasConstraintName("FK_Recruiter_Employer");*/
         });
 
         modelBuilder.Entity<Candidate>(entity =>
@@ -120,17 +121,11 @@ public class RecruitmentDbContext : DbContext
             entity.Property(e => e.Location).HasMaxLength(255);
 
             entity.Property(e => e.Status).HasMaxLength(50);
-
-
-            entity.HasOne(d => d.Recruiter)
-                .WithMany(p => p.Vacancies)
-                .HasForeignKey(d => d.RecruiterId)
-                .HasConstraintName("FK_Vacancy_Recruiter");
-
-            entity.HasOne(d => d.Employer)
-                .WithMany(p => p.Vacancies)
-                .HasForeignKey(d => d.EmployerId)
-                .HasConstraintName("FK_Vacancy_Employer");
+            
+            entity.Property(e => e.RandomId).HasMaxLength(255);
+            
+            entity.Property(e => e.RecruiterId).HasMaxLength(255);
+            
         });
 
         modelBuilder.Entity<JobApplication>(entity =>

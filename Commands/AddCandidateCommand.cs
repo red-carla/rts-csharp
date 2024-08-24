@@ -20,7 +20,7 @@ namespace RTS.Commands
             
             _addCandidateViewModel.PropertyChanged += AddCandidateViewModel_PropertyChanged;
         }
-        public override async void Execute(object parameter)
+        public override async void Execute(object? parameter)
         {
              Candidate candidate = new Candidate()
                        {
@@ -33,13 +33,13 @@ namespace RTS.Commands
                            Status = _addCandidateViewModel.Status,
                            
                        };
-                      _addCandidateViewModel.AddCandidate(candidate);
+                     await  _addCandidateViewModel.AddCandidate(candidate);
                        
                        _navigationService.Navigate(); 
               
         }
 
-        private void AddCandidateViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void AddCandidateViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             OnCanExecuteChanged();
         }

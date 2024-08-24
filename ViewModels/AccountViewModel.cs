@@ -9,9 +9,8 @@ namespace RTS.ViewModels
     public class AccountViewModel : ViewModelBase
     {
         private readonly AccountStore _accountStore;
-
-      
-        public string Email => _accountStore.CurrentAccount?.Email;
+        
+        public string? Email => _accountStore.CurrentAccount?.Email;
 
         public ICommand NavigateHomeCommand { get; }
 

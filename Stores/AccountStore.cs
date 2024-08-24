@@ -7,8 +7,8 @@ namespace RTS.Stores
 {
     public class AccountStore
     {
-        private Recruiter _currentAccount;
-        public Recruiter CurrentAccount
+        private Recruiter? _currentAccount;
+        public Recruiter? CurrentAccount
         {
             get => _currentAccount;
             set
@@ -19,8 +19,8 @@ namespace RTS.Stores
         }
 
         public bool IsLoggedIn => CurrentAccount != null;
-
-        public event Action CurrentAccountChanged;
+     
+        public event Action? CurrentAccountChanged;
 
         public void Logout()
         {

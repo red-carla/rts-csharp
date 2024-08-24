@@ -20,6 +20,7 @@ namespace RTS.Services
         public void Navigate()
         {
             _navigationStore.CurrentViewModel = _createViewModel();
+            
         }
     }
 }

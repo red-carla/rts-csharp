@@ -4,13 +4,10 @@ using RTS.Models;
 
 namespace RTS.Services;
 
-
-
 public class DataService<T> : IDataService<T> where T : BaseEntity
 {
+    // public event Action<T> EntityCreated;
 
-   // public event Action<T> EntityCreated;
-    
     private readonly RecruitmentDbContextFactory _recruitmentDbContextFactory;
 
     public DataService(RecruitmentDbContextFactory recruitmentDbContextFactory)
@@ -20,59 +17,49 @@ public class DataService<T> : IDataService<T> where T : BaseEntity
 
     public async Task<IEnumerable<T>> GetAll()
     {
-        using (RecruitmentDbContext context = _recruitmentDbContextFactory.CreateDbContext())
-        {
-            IEnumerable<T> entities = await context.Set<T>().ToListAsync();
-            return entities;
-        }
+        await using RecruitmentDbContext context = _recruitmentDbContextFactory.CreateDbContext();
+        IEnumerable<T> entities = await context.Set<T>().ToListAsync();
+        return entities;
     }
 
-    public async Task<T> GetById(int id, Func<IQueryable<T>, IQueryable<T>> include = null)
+    public async Task<T?> GetById(int id, Func<IQueryable<T>, IQueryable<T>>? include = null)
     {
-        using (RecruitmentDbContext context = _recruitmentDbContextFactory.CreateDbContext())
+        await using RecruitmentDbContext context = _recruitmentDbContextFactory.CreateDbContext();
+        IQueryable<T?> query = context.Set<T>();
+
+        if (include != null)
         {
-            IQueryable<T> query = context.Set<T>();
-
-            if (include != null)
-            {
-                query = include(query);
-            }
-
-            return await query.FirstOrDefaultAsync(e => EF.Property<int>(e, "Id") == id);
+            query = include(query!);
         }
+
+        return await query.FirstOrDefaultAsync(e => e != null && EF.Property<int>(e, "Id") == id);
     }
 
     public async Task<T> Create(T entity)
     {
-        using (RecruitmentDbContext context = _recruitmentDbContextFactory.CreateDbContext())
-        {
-            await context.Set<T>().AddAsync(entity);
-            await context.SaveChangesAsync();
-            
-           // EntityCreated?.Invoke(entity);
-            return entity;
-        }
+        await using RecruitmentDbContext context = _recruitmentDbContextFactory.CreateDbContext();
+        await context.Set<T>().AddAsync(entity);
+        await context.SaveChangesAsync();
+
+        // EntityCreated?.Invoke(entity);
+        return entity;
     }
 
     public async Task<T> Update(int id, T entity)
     {
-        using (RecruitmentDbContext context = _recruitmentDbContextFactory.CreateDbContext())
-        {
-            entity.Id = id;
-            context.Set<T>().Update(entity);
-            await context.SaveChangesAsync();
-            return entity;
-        }
+        await using RecruitmentDbContext context = _recruitmentDbContextFactory.CreateDbContext();
+        entity.Id = id;
+        context.Set<T>().Update(entity);
+        await context.SaveChangesAsync();
+        return entity;
     }
 
     public async Task<bool> Delete(int id)
     {
-        using (RecruitmentDbContext context = _recruitmentDbContextFactory.CreateDbContext())
-        {
-            T entity = await context.Set<T>().FirstOrDefaultAsync((e) => e.Id == id);
-            context.Set<T>().Remove(entity);
-            await context.SaveChangesAsync();
-            return true;
-        }
+        await using RecruitmentDbContext context = _recruitmentDbContextFactory.CreateDbContext();
+        T? entity = await context.Set<T>().FirstOrDefaultAsync((e) => e.Id == id);
+        if (entity != null) context.Set<T>().Remove(entity);
+        await context.SaveChangesAsync();
+        return true;
     }
 }

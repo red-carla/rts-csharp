@@ -9,15 +9,15 @@ namespace RTS.ViewModels
     {
         private readonly Vacancy _vacancy;
 
-        public string JobTitle => _vacancy.JobTitle;
+        public string? JobTitle => _vacancy.JobTitle;
 
-        public string Description => _vacancy.Description;
+        public string? Description => _vacancy.Description;
 
         /*public string Location => _vacancy.Location;
         public string EmploymentType => _vacancy.EmploymentType;
         public string EducationReq => _vacancy.EducationReq;
         public string ExperienceReq => _vacancy.ExperienceReq;*/
-        public string Status => _vacancy.Status;
+        public string? Status => _vacancy.Status;
         /*public string DatePosted => _vacancy.DatePosted.ToString();*/
 
 

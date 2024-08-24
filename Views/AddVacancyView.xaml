@@ -5,13 +5,17 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:RTS.Views"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
-   
+             d:DesignHeight="500" d:DesignWidth="300">
         <Grid
             Margin="20"
-            DataContext="{Binding AddVacancyViewModel}"
             Grid.IsSharedSizeScope="True">
             <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" /> 
+                <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
@@ -38,7 +42,7 @@
                 <TextBox
                     Grid.Column="1"
                     Margin="10 0 0 0"
-                    Text="{Binding JobTitle, UpdateSourceTrigger=PropertyChanged}" />
+                    Text="{Binding JobTitle}" />
             </Grid>
 
             <Grid Grid.Row="2" Margin="0 10 0 0">
@@ -54,7 +58,7 @@
                 <TextBox
                     Grid.Column="1"
                     Margin="10 0 0 0"
-                    Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" />
+                    Text="{Binding Description}" />
             </Grid>
 
             <Grid Grid.Row="3" Margin="0 10 0 0">
@@ -70,12 +74,70 @@
                 <TextBox
                     Grid.Column="1"
                     Margin="10 0 0 0"
-                    Text="{Binding Status, UpdateSourceTrigger=PropertyChanged}" />
+                    Text="{Binding Status}" />
             </Grid>
+            <Grid Grid.Row="4" Margin="0 10 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" SharedSizeGroup="Label" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
-          
+                <TextBlock
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
+                    Text="Description" />
+                <TextBox
+                    Grid.Column="1"
+                    Margin="10 0 0 0"
+                    Text="{Binding Description}" />
+            </Grid>
+            <Grid Grid.Row="5" Margin="0 10 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" SharedSizeGroup="Label" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
+                    Text="Education" />
+                <TextBox
+                    Grid.Column="1"
+                    Margin="10 0 0 0"
+                    Text="{Binding EduReq}" />
+            </Grid>
+            <Grid Grid.Row="6" Margin="0 10 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" SharedSizeGroup="Label" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
+                    Text="Experience" />
+                <TextBox
+                    Grid.Column="1"
+                    Margin="10 0 0 0"
+                    Text="{Binding ExperienceReq}" />
+            </Grid>
+            <Grid Grid.Row="7" Margin="0 10 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" SharedSizeGroup="Label" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
+                    Text="Location" />
+                <TextBox
+                    Grid.Column="1"
+                    Margin="10 0 0 0"
+                    Text="{Binding Location}" />
+            </Grid>
             <StackPanel
-                Grid.Row="5"
+                Grid.Row="10"
                 Margin="0 20 0 0"
                 Orientation="Horizontal">
                 <Button

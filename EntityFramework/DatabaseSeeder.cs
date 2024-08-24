@@ -41,7 +41,7 @@ public class DatabaseSeeder
 
     private void MarkDatabaseAsSeeded()
     {
-      
+      Console.WriteLine("already done");
         _context.SeedHistory.Add(new SeedHistory { SeedName = "InitialSeed", SeedDate = DateTime.UtcNow });
         _context.SaveChanges();
     }

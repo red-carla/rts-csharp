@@ -22,13 +22,13 @@ public class Vacancy : BaseEntity
 
     [MaxLength(100)] public string? EmploymentType { get; set; }
 
-    public int? EmployerId { get; set; }
+    public int? RandomId { get; set; }
+    public int? RecruiterId { get; set; }
+    /*
+    public Employer Employer { get; set; } = null!;
 
-    [ForeignKey("Recruiter")] public int? RecruiterId { get; set; }
+    public Recruiter? Recruiter { get; set; } = null!;
+    */
 
-    public virtual Employer Employer { get; set; } = null!;
-
-    public virtual Recruiter? Recruiter { get; set; }
-
-    public virtual ICollection<JobApplication> JobApplications { get; set; } = new List<JobApplication>();
+    public ICollection<JobApplication> JobApplications { get; set; } = new List<JobApplication>();
 }

@@ -14,7 +14,10 @@ public static class AddDbContextHostBuilder
         hostBuilder.ConfigureServices((context, services) =>
         {
             string? connectionString = context.Configuration.GetConnectionString("SqlServer");
-            Action<DbContextOptionsBuilder> configureDbContext = o => o.UseSqlServer(connectionString);
+            Action<DbContextOptionsBuilder> configureDbContext = o =>
+            {
+                if (connectionString != null) o.UseSqlServer(connectionString);
+            };
 
             services.AddDbContext<RecruitmentDbContext>(configureDbContext);
             services.AddSingleton<RecruitmentDbContextFactory>(new RecruitmentDbContextFactory(configureDbContext));

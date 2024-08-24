@@ -5,7 +5,7 @@ public class ApplicationStage : BaseEntity
 {
     [Required]
     [MaxLength(50)]
-    public string ApplicationStageName { get; set; }
-    
+    public string ApplicationStageName { get; set; } = null!;
+
     public virtual ICollection<JobApplication> JobApplications { get; set; } = new List<JobApplication>();
 }

@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
@@ -14,26 +15,36 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <TextBlock FontSize="28" Text="People" />
+            <TextBlock FontSize="28" Text="Candidates" />
             <Button
-                Margin="10 0 0 0"
+                Margin="10 0 10 0"
                 Padding="10 5"
                 VerticalAlignment="Center"
                 Command="{Binding AddCandidateCommand}"
                 Content="Add Candidate" />
         </StackPanel>
-        <DataGrid Grid.Row="1" ItemsSource="{Binding Candidates}"  >
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Title}" Header="Title"  IsReadOnly="True" Width="100" />
-                <DataGridTextColumn Binding="{Binding Name}" Header="Name"  IsReadOnly="True" Width="50"/>
-                <DataGridTextColumn Binding="{Binding Avatar}" Header="Avatar"  IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding Phone}" Header="Phone"  IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding Address}" Header="Address" IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding Email}" Header="Email" IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding ResumeLink}" Header="Resume" IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding Status}" Header="Status" IsReadOnly="True" /> 
-            </DataGrid.Columns>
-        </DataGrid>
-       
+        <Grid Grid.Row="1">
+            <TextBlock Text="Candidate List" />
+            <ListView ItemsSource="{Binding Candidates}" SelectedItem="{Binding SelectedCandidate}"
+                      SelectionMode="Single">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding OpenDetailCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}" />
+                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
+                        <GridViewColumn Header="Phone" DisplayMemberBinding="{Binding Phone}" />
+                        <GridViewColumn Header="Address" DisplayMemberBinding="{Binding Address}" />
+                        <GridViewColumn Header="Email" DisplayMemberBinding="{Binding Email}" />
+                        <GridViewColumn Header="ResumeLink" DisplayMemberBinding="{Binding ResumeLink}" />
+                        <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" /> 
+                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
     </Grid>
 </UserControl>

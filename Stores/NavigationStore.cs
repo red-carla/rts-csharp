@@ -1,14 +1,11 @@
 ﻿using RTS.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RTS.Stores
 {
     public class NavigationStore
     {
-        private ViewModelBase _currentViewModel;
-        public ViewModelBase CurrentViewModel
+        private ViewModelBase? _currentViewModel;
+        public ViewModelBase? CurrentViewModel
         {
             get => _currentViewModel;
             set
@@ -19,7 +16,7 @@ namespace RTS.Stores
             }
         }
 
-        public event Action CurrentViewModelChanged;
+        public event Action? CurrentViewModelChanged;
 
         private void OnCurrentViewModelChanged()
         {

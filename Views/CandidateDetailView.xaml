@@ -1,16 +1,59 @@
 ﻿<Window x:Class="RTS.Views.CandidateDetailView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:RTS.Views"
-             mc:Ignorable="d"
- d:DesignHeight="300" d:DesignWidth="300">
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:RTS.Views"
+        mc:Ignorable="d"
+        Height="800" Width="500"
+        d:DesignHeight="700" d:DesignWidth="300">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Window.Resources>
     <Grid>
         <StackPanel Margin="10">
-            <TextBlock Text="Application Details" FontSize="20" Margin="0,0,0,10"/>
-            <TextBlock Text="{Binding Candidate.Id}" FontSize="16"/>
-            <TextBlock Text="{Binding Candidate.Name}" FontSize="14"/>
+            <TextBlock Text="Candidate Details" FontSize="20" Margin="0,0,0,10" />
+            <Button Content="Edit"  Command="{Binding ToggleEditCommand}" />
+
+            <TextBlock Text="{Binding Candidate.Id}" FontSize="16" />
+            <TextBlock Text="{Binding Candidate.Name}" FontSize="14"
+                       Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=False}" />
+            <TextBox Text="{Binding Candidate.Name}" FontSize="14"
+                     Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=True}" />
+
+            <TextBlock Text="{Binding Candidate.Title}" FontSize="14"
+                       Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=False}" />
+            <TextBox Text="{Binding Candidate.Title}" FontSize="14"
+                     Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=True}" />
+
+            <TextBlock Text="{Binding Candidate.Email}" FontSize="14"
+                       Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=False}" />
+            <TextBox Text="{Binding Candidate.Email}" FontSize="14"
+                     Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=True}" />
+
+            <TextBlock Text="{Binding Candidate.Phone}" FontSize="14"
+                       Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=False}" />
+            <TextBox Text="{Binding Candidate.Phone}" FontSize="14"
+                     Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=True}" />
+
+            <TextBlock Text="{Binding Candidate.Address}" FontSize="14"
+                       Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=False}" />
+            <TextBox Text="{Binding Candidate.Address}" FontSize="14"
+                     Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=True}" />
+
+            <TextBlock Text="{Binding Candidate.ResumeLink}" FontSize="14"
+                       Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=False}" />
+            <TextBox Text="{Binding Candidate.ResumeLink}" FontSize="14"
+                     Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=True}" />
+
+            <TextBlock Text="{Binding Candidate.Status}" FontSize="14"
+                       Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=False}" />
+            <TextBox Text="{Binding Candidate.Status}" FontSize="14"
+                     Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=True}" />
+
+           
+            <Button Content="Save" Command="{Binding SaveCommand}"
+                    Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=True}" />
 
         </StackPanel>
 

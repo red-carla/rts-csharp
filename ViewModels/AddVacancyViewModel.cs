@@ -1,64 +1,116 @@
 ﻿using System.Windows.Input;
 using RTS.Commands;
+using RTS.Models;
 using RTS.Services;
 using RTS.Stores;
 
-namespace RTS.ViewModels;
-
-public class AddVacancyViewModel : ViewModelBase
+namespace RTS.ViewModels
 {
-    private string _jobTitle;
-
-    public string JobTitle
+    public class AddVacancyViewModel : ViewModelBase
     {
-        get { return _jobTitle; }
-        set
+        private readonly IDataService<Vacancy> _vacancyDataService;
+
+        private string _jobTitle = null!;
+
+        public string JobTitle
         {
-            _jobTitle = value;
-            OnPropertyChanged(nameof(JobTitle));
+            get => _jobTitle;
+            set
+            {
+                _jobTitle = value;
+                OnPropertyChanged(nameof(JobTitle));
+            }
         }
-    }
 
-    private string _description;
+        private string _description = null!;
 
-    public string Description
-    {
-        get { return _description; }
-        set
+        public string Description
         {
-            _description = value;
-            OnPropertyChanged(nameof(Description));
+            get => _description;
+            set
+            {
+                _description = value;
+                OnPropertyChanged(nameof(Description));
+            }
         }
-    }
 
-    private string _status;
+        private string _status = null!;
 
-    public string Status
-    {
-        get { return _status; }
-        set
+        public string Status
         {
-            _status = value;
-            OnPropertyChanged(nameof(Status));
+            get => _status;
+            set
+            {
+                _status = value;
+                OnPropertyChanged(nameof(Status));
+            }
         }
-    }
-    private string _eduReq;
 
-    public string EduReq
-    {
-        get { return _eduReq; }
-        set
+        private string _eduReq = null!;
+
+        public string EduReq
         {
-            _eduReq = value;
-            OnPropertyChanged(nameof(EduReq));
+            get => _eduReq;
+            set
+            {
+                _eduReq = value;
+                OnPropertyChanged(nameof(EduReq));
+            }
         }
-    }
-    public ICommand SubmitCommand { get; }
-    public ICommand CancelCommand { get; }
+        private DateTime _datePosted = DateTime.Now;
+        public DateTime DatePosted
+        {
+            get => _datePosted;
+            set
+            {
+                _datePosted = value;
+                OnPropertyChanged(nameof(DatePosted));
+            }
+        }
+        private string _experienceReq = null!;
+        public string ExperienceReq
+        {
+            get => _experienceReq;
+            set
+            {
+                _experienceReq = value;
+                OnPropertyChanged(nameof(ExperienceReq));
+            }
+        }
+        private string _location = null!;
+        public string Location
+        {
+            get => _location;
+            set
+            {
+                _location = value;
+                OnPropertyChanged(nameof(Location));
+            }
+        }
+        private string _employmentType = null!;
+        public string EmploymentType
+        {
+            get => _employmentType;
+            set
+            {
+                _employmentType = value;
+                OnPropertyChanged(nameof(EmploymentType));
+            }
+        }
+        
+        public ICommand SubmitCommand { get; }
+        public ICommand CancelCommand { get; }
 
-    public AddVacancyViewModel(VacancyStore vacancyStore, INavigationService closeNavigationService)
-    {
-        SubmitCommand = new AddVacancyCommand(this, vacancyStore, closeNavigationService);
-        CancelCommand = new NavigateCommand(closeNavigationService);
+        public AddVacancyViewModel(IDataService<Vacancy> vacancyDataService, INavigationService closeNavigationService)
+        {
+            _vacancyDataService = vacancyDataService;
+            SubmitCommand = new AddVacancyCommand(this, closeNavigationService);
+            CancelCommand = new NavigateCommand(closeNavigationService);
+        }
+
+        public async Task AddVacancy(Vacancy vacancy)
+        {
+            await _vacancyDataService.Create(vacancy);
+        }
     }
 }

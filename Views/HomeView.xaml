@@ -7,6 +7,24 @@
              mc:Ignorable="d"
  d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
         <TextBlock Text="Home"/>
+        
+        <TextBlock
+            Grid.Row="1"
+            Margin="0 20 0 0"
+            Text="{Binding WelcomeMessage}" />
+
+        <Button
+            Grid.Row="2"
+            Margin="0 20 0 0"
+            Padding="5 2"
+            HorizontalAlignment="Left"
+            Command="{Binding NavigateLoginCommand}"
+            Content="Start" />
     </Grid>
 </UserControl>

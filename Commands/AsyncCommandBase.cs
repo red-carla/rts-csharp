@@ -1,46 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-
-namespace RTS.Commands
+﻿namespace RTS.Commands
 {
     public abstract class AsyncCommandBase : CommandBase
     {
-        private readonly Action<Exception> _onException;
+        private readonly Action<Exception>? _onException;
 
         private bool _isExecuting;
-        public bool IsExecuting
+
+        private bool IsExecuting
         {
-            get
-            {
-                return _isExecuting;
-            }
-            private set
+            get => _isExecuting;
+            set
             {
                 _isExecuting = value;
                 OnCanExecuteChanged();
             }
         }
 
-        public AsyncCommandBase(Action<Exception> onException = null)
+        protected AsyncCommandBase(Action<Exception>? onException = null)
         {
             _onException = onException;
         }
 
-        public override bool CanExecute(object parameter)
+        public override bool CanExecute(object? parameter)
         {
             return !IsExecuting && base.CanExecute(parameter);
         }
 
-        public override async void Execute(object parameter)
+        public override async void Execute(object? parameter)
         {
             IsExecuting = true;
 
             try
             {
-                await ExecuteAsync(parameter);
+                if (parameter != null) await ExecuteAsync(parameter);
             }
             catch (Exception ex)
             {

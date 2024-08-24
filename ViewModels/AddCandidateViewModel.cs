@@ -11,11 +11,11 @@ namespace RTS.ViewModels
         
         private readonly IDataService<Candidate> _candidateDataService;
         
-        private string _name;
+        private string _name = null!;
 
         public string Name
         {
-            get { return _name; }
+            get => _name;
             set
             {
                 _name = value;
@@ -23,7 +23,7 @@ namespace RTS.ViewModels
             }
         }
 
-        private string _title;
+        private string _title = null!;
 
         public string Title
         {
@@ -35,7 +35,7 @@ namespace RTS.ViewModels
             }
         }
 
-        private string _avatar;
+        private string _avatar = null!;
 
         public string Avatar
         {
@@ -47,7 +47,7 @@ namespace RTS.ViewModels
             }
         }
 
-        private string _resumeLink;
+        private string _resumeLink = null!;
 
         public string ResumeLink
         {
@@ -59,7 +59,7 @@ namespace RTS.ViewModels
             }
         }
 
-        private string _email;
+        private string _email = null!;
 
         public string Email
         {
@@ -72,7 +72,7 @@ namespace RTS.ViewModels
         }
 
 
-        private string _phone;
+        private string _phone = null!;
 
         public string Phone
         {
@@ -84,7 +84,7 @@ namespace RTS.ViewModels
             }
         }
 
-        private string _address;
+        private string _address = null!;
 
         public string Address
         {
@@ -96,7 +96,7 @@ namespace RTS.ViewModels
             }
         }
 
-        private string _status;
+        private string _status = null!;
 
         public string Status
         {
@@ -107,7 +107,6 @@ namespace RTS.ViewModels
                 OnPropertyChanged(nameof(Status));
             }
         }
-
         public ICommand SubmitCommand { get; }
         public ICommand CancelCommand { get; }
 

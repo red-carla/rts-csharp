@@ -1,12 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿/*
+using System.ComponentModel.DataAnnotations;
 
 namespace RTS.Models;
 
 
 public class Employer : BaseEntity
 {
-   
-
+    
     [Required]
     [MaxLength(100)]
     public string Name { get; set; } = null!;
@@ -21,3 +21,4 @@ public class Employer : BaseEntity
 
     public virtual ICollection<Vacancy> Vacancies { get; set; } = new List<Vacancy>();
 }
+*/

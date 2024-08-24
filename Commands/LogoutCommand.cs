@@ -1,9 +1,4 @@
 ﻿using RTS.Stores;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using RTS.Commands;
-using RTS.Stores;
 
 namespace RTS.Commands
 {
@@ -16,7 +11,7 @@ namespace RTS.Commands
             _accountStore = accountStore;
         }
 
-        public override void Execute(object parameter)
+        public override void Execute(object? parameter)
         {
             _accountStore.Logout();
         }

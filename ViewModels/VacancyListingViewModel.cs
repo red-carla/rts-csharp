@@ -11,21 +11,21 @@ namespace RTS.ViewModels;
 
 public class VacancyListingViewModel : ViewModelBase
 {
-    private readonly VacancyStore _vacancyStore;
+    
     private readonly IDataService<Vacancy> _vacancyDataService;
     public ObservableCollection<Vacancy> Vacancies { get; private set; }
     
     public ICommand AddVacancyCommand { get; }
 
-    public VacancyListingViewModel(VacancyStore vacancyStore, INavigationService addVacancyNavigationService, IDataService<Vacancy> vacancyDataService
+    public VacancyListingViewModel(INavigationService addVacancyNavigationService, IDataService<Vacancy> vacancyDataService
         )
     {
-        _vacancyStore = vacancyStore;
+       
         _vacancyDataService = vacancyDataService;
        Vacancies = new ObservableCollection<Vacancy>();
 
         AddVacancyCommand = new NavigateCommand(addVacancyNavigationService);
-        _vacancyStore.VacancyAdded += OnVacancyAdded;
+        
 
         LoadVacancies();
 

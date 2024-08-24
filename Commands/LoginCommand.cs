@@ -11,22 +11,22 @@ namespace RTS.Commands
 {
     public class LoginCommand : CommandBase
     {
-        private readonly LoginViewModel _viewModel;
+        private readonly LoginViewModel _loginViewModel;
         private readonly AccountStore _accountStore;
         private readonly INavigationService _navigationService;
 
-        public LoginCommand(LoginViewModel viewModel, AccountStore accountStore, INavigationService navigationService)
+        public LoginCommand(LoginViewModel loginViewModel, AccountStore accountStore, INavigationService navigationService)
         {
-            _viewModel = viewModel;
+            _loginViewModel = loginViewModel;
             _accountStore = accountStore;
             _navigationService = navigationService;
         }
 
-        public override void Execute(object parameter)
+        public override void Execute(object? parameter)
         {
-            Recruiter account = new Recruiter()
+            Recruiter? account = new Recruiter()
             {
-                Email = $"{_viewModel.Username}@test.com",
+                Email = _loginViewModel.Email,
             };
 
             _accountStore.CurrentAccount = account;

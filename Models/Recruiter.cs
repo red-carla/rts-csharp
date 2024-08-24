@@ -19,11 +19,8 @@ public class Recruiter : BaseEntity
     [StringLength(255)]
     public string? Avatar { get; set; }
 
-    [ForeignKey("Employer")]
-    public int? EmployerId { get; set; }  
-
-    public virtual Employer? Employer { get; set; } 
-
-    public virtual ICollection<Vacancy> Vacancies { get; set; } = new List<Vacancy>(); 
+    public int? RandomId { get; set; }  
+    
+  //  public virtual ICollection<Vacancy> Vacancies { get; set; } = new List<Vacancy>(); 
     public virtual ICollection<JobApplication> JobApplications { get; set; } = new List<JobApplication>(); 
 }

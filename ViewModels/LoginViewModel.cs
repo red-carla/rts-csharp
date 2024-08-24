@@ -8,27 +8,21 @@ namespace RTS.ViewModels
 {
     public class LoginViewModel : ViewModelBase
     {
-        private string _username;
-        public string Username
+        private string _email = null!;
+        public string Email
         {
-            get
-            {
-                return _username;
-            }
+            get => _email;
             set
             {
-                _username = value;
-                OnPropertyChanged(nameof(Username));
+                _email = value;
+                OnPropertyChanged(nameof(Email));
             }
         }
 
-        private string _password;
+        private string _password = null!;
         public string Password
         {
-            get
-            {
-                return _password;
-            }
+            get => _password;
             set
             {
                 _password = value;
