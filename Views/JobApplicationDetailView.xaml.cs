@@ -2,9 +2,9 @@
 
 namespace RTS.Views;
 
-public partial class CandidateDetailView : Window
+public partial class JobApplicationDetailView : Window
 {
-    public CandidateDetailView()
+    public JobApplicationDetailView()
     {
         InitializeComponent();
     }

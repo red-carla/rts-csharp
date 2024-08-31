@@ -1,72 +1,71 @@
-﻿using RTS.Commands;
-using RTS.Services;
-using RTS.Stores;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
+using RTS.Commands;
 using RTS.Models;
+using RTS.Services;
 using RTS.Views;
 
-namespace RTS.ViewModels
+namespace RTS.ViewModels;
+
+public class CandidateListingViewModel : ViewModelBase
 {
-    public class CandidateListingViewModel : ViewModelBase
+    private readonly IDataService<Candidate> _candidateDataService;
+    private Candidate _selectedCandidate;
+
+
+    public CandidateListingViewModel(INavigationService addCandidateNavigationService,
+        IDataService<Candidate> candidateDataService)
     {
-        public ICommand OpenDetailCommand { get; private set; }
-        private Candidate _selectedCandidate;
-        public Candidate SelectedCandidate
+        _candidateDataService = candidateDataService;
+        Candidates = new ObservableCollection<Candidate>();
+        OpenDetailCommand = new RelayCommand(OpenDetailExecute, OpenDetailCanExecute);
+        AddCandidateCommand = new NavigateCommand(addCandidateNavigationService);
+      
+        LoadCandidates();
+    }
+
+    public ICommand OpenDetailCommand { get; private set; }
+
+    public Candidate SelectedCandidate
+    {
+        get => _selectedCandidate;
+        set
         {
-            get => _selectedCandidate;
-            set
-            {
-                _selectedCandidate = value;
-                OnPropertyChanged(nameof(SelectedCandidate));
-            }
+            _selectedCandidate = value;
+            OnPropertyChanged(nameof(SelectedCandidate));
         }
-        private readonly IDataService<Candidate> _candidateDataService;
-        public ObservableCollection<Candidate> Candidates { get; private set; }
+    }
 
-        public ICommand AddCandidateCommand { get; }
+    public ObservableCollection<Candidate> Candidates { get; }
 
+    public ICommand AddCandidateCommand { get; }
 
-        public CandidateListingViewModel(INavigationService addCandidateNavigationService,
-            IDataService<Candidate> candidateDataService)
+    private bool OpenDetailCanExecute()
+    {
+        return SelectedCandidate != null;
+    }
+
+    private async void OpenDetailExecute()
+    {
+        var detailViewModel = new CandidateDetailViewModel(_candidateDataService);
+        await detailViewModel.LoadCandidateDetails(SelectedCandidate.Id);
+
+        var detailView = new CandidateDetailView
         {
-            _candidateDataService = candidateDataService;
-            Candidates = new ObservableCollection<Candidate>();
-            OpenDetailCommand = new RelayCommand(OpenDetailExecute, OpenDetailCanExecute);
-            AddCandidateCommand = new NavigateCommand(addCandidateNavigationService);
-            //   _candidateDataService.EntityCreated += OnCandidateAdded; this throws an Explicit id error so figure out another way to refresh the list after create
+            DataContext = detailViewModel
+        };
+        detailView.Show();
+    }
 
-            LoadCandidates();
-        }
-        private bool OpenDetailCanExecute()
-        {
-            return SelectedCandidate != null;
-        }
+    private async void LoadCandidates()
+    {
+        var candidates = await _candidateDataService.GetAll();
+        foreach (var candidate in candidates) Candidates.Add(candidate);
+    }
 
-        private async void  OpenDetailExecute()
-        {
-            var detailViewModel = new CandidateDetailViewModel(_candidateDataService);
-            await detailViewModel.LoadCandidateDetails(SelectedCandidate.Id);
-
-            CandidateDetailView detailView = new CandidateDetailView
-            {
-                DataContext = detailViewModel
-            };
-            detailView.Show();
-        }
-        private async void LoadCandidates()
-        {
-            var candidates = await _candidateDataService.GetAll();
-            foreach (var candidate in candidates)
-            {
-                Candidates.Add(candidate);
-            }
-        }
-
-        private async void OnCandidateAdded(Candidate candidate)
-        {
-            await _candidateDataService.Create(candidate);
-            Candidates.Add(candidate);
-        }
+    private async void OnCandidateAdded(Candidate candidate)
+    {
+        await _candidateDataService.Create(candidate);
+        Candidates.Add(candidate);
     }
 }

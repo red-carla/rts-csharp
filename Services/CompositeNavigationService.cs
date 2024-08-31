@@ -1,24 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace RTS.Services;
 
-namespace RTS.Services
+public class CompositeNavigationService : INavigationService
 {
-    public class CompositeNavigationService : INavigationService
+    private readonly IEnumerable<INavigationService> _navigationServices;
+
+    public CompositeNavigationService(params INavigationService[] navigationServices)
     {
-        private readonly IEnumerable<INavigationService> _navigationServices;
+        _navigationServices = navigationServices;
+    }
 
-        public CompositeNavigationService(params INavigationService[] navigationServices)
-        {
-            _navigationServices = navigationServices;
-        }
-
-        public void Navigate()
-        {
-            foreach (INavigationService navigationService in _navigationServices)
-            {
-                navigationService.Navigate();
-            }
-        }
+    public void Navigate()
+    {
+        foreach (var navigationService in _navigationServices) navigationService.Navigate();
     }
 }

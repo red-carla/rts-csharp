@@ -4,9 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    Background="DarkGreen"
+
+    Background="DarkSlateBlue"
     mc:Ignorable="d">
     <UserControl.Resources>
         <Style TargetType="Button">
@@ -40,6 +39,7 @@
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="auto" />
@@ -67,11 +67,18 @@
             Grid.Column="3"
             FontSize="18"
             Margin="10 0 10 0"
-            Command="{Binding NavigateLoginCommand}"
-            Content="Login" />
-
+            Command="{Binding NavigateJobApplicationListingCommand}"
+            Content="Applications" />
         <Button
             Grid.Column="4"
+            FontSize="18"
+            Margin="10 0 10 0"
+            Command="{Binding NavigateLoginCommand}"
+            Content="Login"
+            Visibility="{Binding IsLoggedIn, Converter={StaticResource InverseBoolToVisConverter}}" />
+
+        <Button
+            Grid.Column="5"
             FontSize="18"
             Margin="10 0 10 0"
             Command="{Binding NavigateAccountCommand}"
@@ -79,12 +86,12 @@
             Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
         <Button
-            Grid.Column="5"
+            Grid.Column="6"
             FontSize="18"
             Margin="10 0 10 0"
             Command="{Binding LogoutCommand}"
             Content="Logout"
             Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}" />
-        
+
     </Grid>
 </UserControl>

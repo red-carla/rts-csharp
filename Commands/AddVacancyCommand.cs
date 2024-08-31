@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using RTS.Models;
 using RTS.Services;
-using RTS.Stores;
 using RTS.ViewModels;
 
 namespace RTS.Commands;
@@ -24,7 +23,7 @@ public class AddVacancyCommand : CommandBase
     {
         try
         {
-            Vacancy vacancy = new Vacancy()
+            var vacancy = new Vacancy
             {
                 JobTitle = _addVacancyViewModel.JobTitle,
                 Description = _addVacancyViewModel.Description,
@@ -34,20 +33,16 @@ public class AddVacancyCommand : CommandBase
                 DatePosted = _addVacancyViewModel.DatePosted,
                 Location = _addVacancyViewModel.Location,
 
-                EmploymentType = _addVacancyViewModel.EmploymentType,
+                EmploymentType = _addVacancyViewModel.EmploymentType
             };
             await _addVacancyViewModel.AddVacancy(vacancy);
 
             _navigationService.Navigate();
-
         }
         catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
-            if (ex.InnerException != null)
-            {
-                Console.WriteLine(ex.InnerException.Message);
-            }
+            if (ex.InnerException != null) Console.WriteLine(ex.InnerException.Message);
         }
     }
 

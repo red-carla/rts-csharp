@@ -2,36 +2,31 @@
 using RTS.Services;
 using RTS.Stores;
 using RTS.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
 
-namespace RTS.Commands
+namespace RTS.Commands;
+
+public class LoginCommand : CommandBase
 {
-    public class LoginCommand : CommandBase
+    private readonly AccountStore _accountStore;
+    private readonly LoginViewModel _loginViewModel;
+    private readonly INavigationService _navigationService;
+
+    public LoginCommand(LoginViewModel loginViewModel, AccountStore accountStore, INavigationService navigationService)
     {
-        private readonly LoginViewModel _loginViewModel;
-        private readonly AccountStore _accountStore;
-        private readonly INavigationService _navigationService;
+        _loginViewModel = loginViewModel;
+        _accountStore = accountStore;
+        _navigationService = navigationService;
+    }
 
-        public LoginCommand(LoginViewModel loginViewModel, AccountStore accountStore, INavigationService navigationService)
+    public override void Execute(object? parameter)
+    {
+        var account = new Recruiter
         {
-            _loginViewModel = loginViewModel;
-            _accountStore = accountStore;
-            _navigationService = navigationService;
-        }
+            Email = _loginViewModel.Email
+        };
 
-        public override void Execute(object? parameter)
-        {
-            Recruiter? account = new Recruiter()
-            {
-                Email = _loginViewModel.Email,
-            };
+        _accountStore.CurrentAccount = account;
 
-            _accountStore.CurrentAccount = account;
-
-            _navigationService.Navigate();
-        }
+        _navigationService.Navigate();
     }
 }

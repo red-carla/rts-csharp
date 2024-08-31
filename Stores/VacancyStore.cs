@@ -1,15 +1,13 @@
-﻿
-using RTS.Models;
+﻿using RTS.Models;
 
-namespace RTS.Stores
+namespace RTS.Stores;
+
+public class VacancyStore
 {
-    public class VacancyStore
-    {
-        public event Action<Vacancy>? VacancyAdded;
+    public event Action<Vacancy>? VacancyAdded;
 
-        public void AddVacancy(Vacancy vacancy)
-        {
-            VacancyAdded?.Invoke(vacancy);
-        }
+    public void AddVacancy(Vacancy vacancy)
+    {
+        VacancyAdded?.Invoke(vacancy);
     }
 }

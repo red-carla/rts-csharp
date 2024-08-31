@@ -5,42 +5,93 @@ using System.Windows.Input;
 using RTS.Commands;
 using RTS.Models;
 using RTS.Services;
-using RTS.Stores;
+using RTS.Views;
 
 namespace RTS.ViewModels;
 
 public class VacancyListingViewModel : ViewModelBase
 {
-    
     private readonly IDataService<Vacancy> _vacancyDataService;
-    public ObservableCollection<Vacancy> Vacancies { get; private set; }
-    
-    public ICommand AddVacancyCommand { get; }
+    private Vacancy _selectedVacancy;
+    public ICollectionView VacanciesView { get; }
 
-    public VacancyListingViewModel(INavigationService addVacancyNavigationService, IDataService<Vacancy> vacancyDataService
-        )
+    private string _nameFilter = string.Empty;
+    public string NameFilter
     {
-       
-        _vacancyDataService = vacancyDataService;
-       Vacancies = new ObservableCollection<Vacancy>();
-
-        AddVacancyCommand = new NavigateCommand(addVacancyNavigationService);
-        
-
-        LoadVacancies();
-
-    }
-    private async void LoadVacancies()
-    {
-        var vacancies = await _vacancyDataService.GetAll();
-        foreach (var vacancy in vacancies)
+        get => _nameFilter;
+        set
         {
-            Vacancies.Add(vacancy);
+            _nameFilter = value;
+            OnPropertyChanged(nameof(NameFilter));
+            VacanciesView.Refresh();
+        }
+    }
+    public ICommand ApplyFilterCommand { get; private set; }
+    public VacancyListingViewModel(INavigationService addVacancyNavigationService,
+        IDataService<Vacancy> vacancyDataService)
+    {
+        _vacancyDataService = vacancyDataService;
+        Vacancies = new ObservableCollection<Vacancy>();
+        VacanciesView = CollectionViewSource.GetDefaultView(Vacancies);
+        VacanciesView.Filter = FilterVacancies;
+        OpenDetailCommand = new RelayCommand(OpenDetailExecute, OpenDetailCanExecute);
+        AddVacancyCommand = new NavigateCommand(addVacancyNavigationService);
+        ApplyFilterCommand = new RelayCommand(() => VacanciesView.Refresh());
+      
+        LoadVacancies();
+    }
+
+    public ICommand OpenDetailCommand { get; private set; }
+
+    public Vacancy SelectedVacancy
+    {
+        get => _selectedVacancy;
+        set
+        {
+            _selectedVacancy = value;
+            OnPropertyChanged(nameof(SelectedVacancy));
         }
     }
 
-    private void OnVacancyAdded(Vacancy vacancy)
+    public ObservableCollection<Vacancy> Vacancies { get; }
+
+    public ICommand AddVacancyCommand { get; }
+
+    private bool OpenDetailCanExecute()
     {
-        Vacancies.Add(new Vacancy());
+        return SelectedVacancy != null;
+    }
+
+    private async void OpenDetailExecute()
+    {
+        var detailViewModel = new VacancyDetailViewModel(_vacancyDataService);
+        await detailViewModel.LoadVacancyDetails(SelectedVacancy.Id);
+
+        var detailView = new VacancyDetailView
+        {
+            DataContext = detailViewModel
+        };
+        detailView.Show();
+    }
+
+    private async void LoadVacancies()
+    {
+        var vacancies = await _vacancyDataService.GetAll();
+        foreach (var vacancy in vacancies) Vacancies.Add(vacancy);
+    }
+
+    private async void OnVacancyAdded(Vacancy vacancy)
+    {
+        await _vacancyDataService.Create(vacancy);
+        Vacancies.Add(vacancy);
+    }
+    private bool FilterVacancies(object item)
+    {
+        if (item is Vacancy vacancy)
+        {
+            return vacancy.JobTitle.Contains(NameFilter, StringComparison.InvariantCultureIgnoreCase);
+
+        }
+        return false;
     }
 }

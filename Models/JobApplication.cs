@@ -16,10 +16,8 @@ public class JobApplication : BaseEntity
     [ForeignKey("ApplicationStage")] public int ApplicationStageId { get; set; }
 
     public virtual ApplicationStage ApplicationStage { get; set; } = null!;
-    
+
     [Required] public DateTime? CreatedAt { get; set; }
 
     [Required] public DateTime? UpdatedAt { get; set; }
-
 }
-

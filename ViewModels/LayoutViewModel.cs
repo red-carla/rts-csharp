@@ -1,26 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace RTS.ViewModels;
 
-namespace RTS.ViewModels
+public class LayoutViewModel : ViewModelBase
 {
-    public class LayoutViewModel : ViewModelBase
+    public LayoutViewModel(NavigationBarViewModel navigationBarViewModel, ViewModelBase contentViewModel)
     {
-        public NavigationBarViewModel NavigationBarViewModel { get; }
-        public ViewModelBase ContentViewModel { get; }
+        NavigationBarViewModel = navigationBarViewModel;
+        ContentViewModel = contentViewModel;
+    }
 
-        public LayoutViewModel(NavigationBarViewModel navigationBarViewModel, ViewModelBase contentViewModel)
-        {
-            NavigationBarViewModel = navigationBarViewModel;
-            ContentViewModel = contentViewModel;
-        }
+    public NavigationBarViewModel NavigationBarViewModel { get; }
+    public ViewModelBase ContentViewModel { get; }
 
-        public override void Dispose()
-        {
-            NavigationBarViewModel.Dispose();
-            ContentViewModel.Dispose();
+    public override void Dispose()
+    {
+        NavigationBarViewModel.Dispose();
+        ContentViewModel.Dispose();
 
-            base.Dispose();
-        }
+        base.Dispose();
     }
 }

@@ -1,29 +1,68 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Windows.Input;
+using RTS.Commands;
 using RTS.Models;
 using RTS.Services;
 
-namespace RTS.ViewModels
+namespace RTS.ViewModels;
+
+public class VacancyDetailViewModel : ViewModelBase
 {
-    public class VacancyDetailViewModel : ViewModelBase
+    private readonly IDataService<Vacancy> _vacancyDataService;
+    private bool _isEditing;
+    private Vacancy _vacancy;
 
+    public VacancyDetailViewModel(IDataService<Vacancy> dataService)
     {
-        private readonly Vacancy _vacancy;
+        _vacancyDataService = dataService;
+        EditCommand = new RelayCommand(ToggleEdit, () => true);
+        SaveCommand = new RelayCommand(Save, () => IsEditing);
+        DeleteCommand = new RelayCommand(Delete, () => true);
+    }
 
-        public string? JobTitle => _vacancy.JobTitle;
-
-        public string? Description => _vacancy.Description;
-
-        /*public string Location => _vacancy.Location;
-        public string EmploymentType => _vacancy.EmploymentType;
-        public string EducationReq => _vacancy.EducationReq;
-        public string ExperienceReq => _vacancy.ExperienceReq;*/
-        public string? Status => _vacancy.Status;
-        /*public string DatePosted => _vacancy.DatePosted.ToString();*/
-
-
-        public VacancyDetailViewModel(Vacancy vacancy)
+    public Vacancy Vacancy
+    {
+        get => _vacancy;
+        set
         {
-            _vacancy = vacancy;
+            _vacancy = value;
+            OnPropertyChanged(nameof(Vacancy));
         }
+    }
+
+    public bool IsEditing
+    {
+        get => _isEditing;
+        set
+        {
+            _isEditing = value;
+            OnPropertyChanged(nameof(IsEditing));
+        }
+    }
+
+    public ICommand EditCommand { get; }
+    public ICommand SaveCommand { get; }
+    public ICommand DeleteCommand { get; }
+
+    public async Task LoadVacancyDetails(int VacancyId)
+    {
+        Vacancy = await _vacancyDataService.GetById(VacancyId);
+        OnPropertyChanged(nameof(Vacancy));
+    }
+
+    private void ToggleEdit()
+    {
+        IsEditing = !IsEditing;
+        CommandManager.InvalidateRequerySuggested();
+    }
+
+    private async void Save()
+    {
+        await _vacancyDataService.Update(Vacancy.Id, Vacancy);
+        IsEditing = false;
+    }
+
+    private async void Delete()
+    {
+        await _vacancyDataService.Delete(Vacancy.Id);
     }
 }

@@ -1,6 +1,5 @@
-﻿
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.DependencyInjection;
 using RTS.Models;
 using RTS.Services;
 
@@ -16,9 +15,8 @@ public static class AddServicesHostBuilder
             services.AddSingleton<IDataService<JobApplication>, DataService<JobApplication>>();
             services.AddSingleton<IDataService<Candidate>, DataService<Candidate>>();
             services.AddSingleton<IDataService<Recruiter>, DataService<Recruiter>>();
-            
         });
-        
+
         return host;
     }
 }

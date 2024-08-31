@@ -1,30 +1,27 @@
 ﻿using RTS.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace RTS.Stores
+namespace RTS.Stores;
+
+public class AccountStore
 {
-    public class AccountStore
+    private Recruiter? _currentAccount;
+
+    public Recruiter? CurrentAccount
     {
-        private Recruiter? _currentAccount;
-        public Recruiter? CurrentAccount
+        get => _currentAccount;
+        set
         {
-            get => _currentAccount;
-            set
-            {
-                _currentAccount = value;
-                CurrentAccountChanged?.Invoke();
-            }
+            _currentAccount = value;
+            CurrentAccountChanged?.Invoke();
         }
+    }
 
-        public bool IsLoggedIn => CurrentAccount != null;
-     
-        public event Action? CurrentAccountChanged;
+    public bool IsLoggedIn => CurrentAccount != null;
 
-        public void Logout()
-        {
-            CurrentAccount = null;
-        }
+    public event Action? CurrentAccountChanged;
+
+    public void Logout()
+    {
+        CurrentAccount = null;
     }
 }

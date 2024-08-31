@@ -1,22 +1,15 @@
-﻿using System.Text;
-using System.Windows;
+﻿using System.Windows;
 
+namespace RTS;
 
-namespace RTS
+/// <summary>
+///     Interaction logic for MainWindow.xaml
+/// </summary>
+public partial class MainWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    public MainWindow(object dataContext)
     {
-       
-
-        public MainWindow(object dataContext)
-        {
-            
-             InitializeComponent();
-            DataContext = dataContext;
-           
-        }
+        InitializeComponent();
+        DataContext = dataContext;
     }
 }

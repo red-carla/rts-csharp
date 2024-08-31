@@ -2,9 +2,9 @@
 
 namespace RTS.Views;
 
-public partial class CandidateListView : UserControl
+public partial class JobApplicationListingView : UserControl
 {
-    public CandidateListView()
+    public JobApplicationListingView()
     {
         InitializeComponent();
     }

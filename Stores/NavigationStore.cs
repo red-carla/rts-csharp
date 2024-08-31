@@ -1,26 +1,26 @@
 ﻿using RTS.ViewModels;
 
-namespace RTS.Stores
+namespace RTS.Stores;
+
+public class NavigationStore
 {
-    public class NavigationStore
+    private ViewModelBase? _currentViewModel;
+
+    public ViewModelBase? CurrentViewModel
     {
-        private ViewModelBase? _currentViewModel;
-        public ViewModelBase? CurrentViewModel
+        get => _currentViewModel;
+        set
         {
-            get => _currentViewModel;
-            set
-            {
-                _currentViewModel?.Dispose();
-                _currentViewModel = value;
-                OnCurrentViewModelChanged();
-            }
+            _currentViewModel?.Dispose();
+            _currentViewModel = value;
+            OnCurrentViewModelChanged();
         }
+    }
 
-        public event Action? CurrentViewModelChanged;
+    public event Action? CurrentViewModelChanged;
 
-        private void OnCurrentViewModelChanged()
-        {
-            CurrentViewModelChanged?.Invoke();
-        }
+    private void OnCurrentViewModelChanged()
+    {
+        CurrentViewModelChanged?.Invoke();
     }
 }

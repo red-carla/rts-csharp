@@ -1,22 +1,18 @@
 ﻿using RTS.Stores;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace RTS.Services
+namespace RTS.Services;
+
+public class CloseModalNavigationService : INavigationService
 {
-    public class CloseModalNavigationService : INavigationService
+    private readonly ModalNavigationStore _navigationStore;
+
+    public CloseModalNavigationService(ModalNavigationStore navigationStore)
     {
-        private readonly ModalNavigationStore _navigationStore;
+        _navigationStore = navigationStore;
+    }
 
-        public CloseModalNavigationService(ModalNavigationStore navigationStore)
-        {
-            _navigationStore = navigationStore;
-        }
-
-        public void Navigate()
-        {
-            _navigationStore.Close();
-        }
+    public void Navigate()
+    {
+        _navigationStore.Close();
     }
 }

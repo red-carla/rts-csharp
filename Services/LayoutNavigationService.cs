@@ -1,29 +1,25 @@
 ﻿using RTS.Stores;
 using RTS.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace RTS.Services
+namespace RTS.Services;
+
+public class LayoutNavigationService<TViewModel> : INavigationService where TViewModel : ViewModelBase
 {
-    public class LayoutNavigationService<TViewModel> : INavigationService where TViewModel : ViewModelBase
+    private readonly Func<NavigationBarViewModel> _createNavigationBarViewModel;
+    private readonly Func<TViewModel> _createViewModel;
+    private readonly NavigationStore _navigationStore;
+
+    public LayoutNavigationService(NavigationStore navigationStore,
+        Func<TViewModel> createViewModel,
+        Func<NavigationBarViewModel> createNavigationBarViewModel)
     {
-        private readonly NavigationStore _navigationStore;
-        private readonly Func<TViewModel> _createViewModel;
-        private readonly Func<NavigationBarViewModel> _createNavigationBarViewModel;
+        _navigationStore = navigationStore;
+        _createViewModel = createViewModel;
+        _createNavigationBarViewModel = createNavigationBarViewModel;
+    }
 
-        public LayoutNavigationService(NavigationStore navigationStore, 
-            Func<TViewModel> createViewModel,
-            Func<NavigationBarViewModel> createNavigationBarViewModel)
-        {
-            _navigationStore = navigationStore;
-            _createViewModel = createViewModel;
-            _createNavigationBarViewModel = createNavigationBarViewModel;
-        }
-
-        public void Navigate()
-        {
-            _navigationStore.CurrentViewModel = new LayoutViewModel(_createNavigationBarViewModel(), _createViewModel());
-        }
+    public void Navigate()
+    {
+        _navigationStore.CurrentViewModel = new LayoutViewModel(_createNavigationBarViewModel(), _createViewModel());
     }
 }

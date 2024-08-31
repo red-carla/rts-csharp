@@ -1,37 +1,33 @@
 ﻿using RTS.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace RTS.Stores
+namespace RTS.Stores;
+
+public class ModalNavigationStore
 {
-    public class ModalNavigationStore
+    private ViewModelBase? _currentViewModel;
+
+    public ViewModelBase? CurrentViewModel
     {
-        private ViewModelBase? _currentViewModel;
-
-        public ViewModelBase? CurrentViewModel
+        get => _currentViewModel;
+        set
         {
-            get => _currentViewModel;
-            set
-            {
-                _currentViewModel?.Dispose();
-                _currentViewModel = value;
-                OnCurrentViewModelChanged();
-            }
+            _currentViewModel?.Dispose();
+            _currentViewModel = value;
+            OnCurrentViewModelChanged();
         }
+    }
 
-        public bool IsOpen => CurrentViewModel != null;
+    public bool IsOpen => CurrentViewModel != null;
 
-        public event Action? CurrentViewModelChanged;
+    public event Action? CurrentViewModelChanged;
 
-        public void Close()
-        {
-            CurrentViewModel = null;
-        }
+    public void Close()
+    {
+        CurrentViewModel = null;
+    }
 
-        private void OnCurrentViewModelChanged()
-        {
-            CurrentViewModelChanged?.Invoke();
-        }
+    private void OnCurrentViewModelChanged()
+    {
+        CurrentViewModelChanged?.Invoke();
     }
 }

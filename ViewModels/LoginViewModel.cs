@@ -1,40 +1,40 @@
-﻿using RTS.Commands;
-using RTS.Models;
+﻿using System.Windows.Input;
+using RTS.Commands;
 using RTS.Services;
 using RTS.Stores;
-using System.Windows.Input;
 
-namespace RTS.ViewModels
+namespace RTS.ViewModels;
+
+public class LoginViewModel : ViewModelBase
 {
-    public class LoginViewModel : ViewModelBase
+    private string _email = null!;
+
+    private string _password = null!;
+
+    public LoginViewModel(AccountStore accountStore, INavigationService loginNavigationService)
     {
-        private string _email = null!;
-        public string Email
-        {
-            get => _email;
-            set
-            {
-                _email = value;
-                OnPropertyChanged(nameof(Email));
-            }
-        }
+        LoginCommand = new LoginCommand(this, accountStore, loginNavigationService);
+    }
 
-        private string _password = null!;
-        public string Password
+    public string Email
+    {
+        get => _email;
+        set
         {
-            get => _password;
-            set
-            {
-                _password = value;
-                OnPropertyChanged(nameof(Password));
-            }
-        }
-
-        public ICommand LoginCommand { get; }
-
-        public LoginViewModel(AccountStore accountStore, INavigationService loginNavigationService)
-        {
-            LoginCommand = new LoginCommand(this, accountStore, loginNavigationService);
+            _email = value;
+            OnPropertyChanged(nameof(Email));
         }
     }
+
+    public string Password
+    {
+        get => _password;
+        set
+        {
+            _password = value;
+            OnPropertyChanged(nameof(Password));
+        }
+    }
+
+    public ICommand LoginCommand { get; }
 }

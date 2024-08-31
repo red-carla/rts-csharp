@@ -1,38 +1,36 @@
-﻿using RTS.Commands;
-using RTS.Models;
+﻿using System.Windows.Input;
+using RTS.Commands;
 using RTS.Services;
 using RTS.Stores;
-using System.Windows.Input;
 
-namespace RTS.ViewModels
+namespace RTS.ViewModels;
+
+public class AccountViewModel : ViewModelBase
 {
-    public class AccountViewModel : ViewModelBase
+    private readonly AccountStore _accountStore;
+
+    public AccountViewModel(AccountStore accountStore, INavigationService homeNavigationService)
     {
-        private readonly AccountStore _accountStore;
-        
-        public string? Email => _accountStore.CurrentAccount?.Email;
+        _accountStore = accountStore;
 
-        public ICommand NavigateHomeCommand { get; }
+        NavigateHomeCommand = new NavigateCommand(homeNavigationService);
 
-        public AccountViewModel(AccountStore accountStore, INavigationService homeNavigationService)
-        {
-            _accountStore = accountStore;
+        _accountStore.CurrentAccountChanged += OnCurrentAccountChanged;
+    }
 
-            NavigateHomeCommand = new NavigateCommand(homeNavigationService);
+    public string? Email => _accountStore.CurrentAccount?.Email;
 
-            _accountStore.CurrentAccountChanged += OnCurrentAccountChanged;
-        }
+    public ICommand NavigateHomeCommand { get; }
 
-        private void OnCurrentAccountChanged()
-        {
-            OnPropertyChanged(nameof(Email));
-        }
+    private void OnCurrentAccountChanged()
+    {
+        OnPropertyChanged(nameof(Email));
+    }
 
-        public override void Dispose()
-        {
-            _accountStore.CurrentAccountChanged -= OnCurrentAccountChanged;
+    public override void Dispose()
+    {
+        _accountStore.CurrentAccountChanged -= OnCurrentAccountChanged;
 
-            base.Dispose();
-        }
+        base.Dispose();
     }
 }

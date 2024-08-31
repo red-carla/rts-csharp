@@ -1,11 +1,9 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+
 namespace RTS.Models;
 
 public class Vacancy : BaseEntity
 {
-
     [MaxLength(100)] public string? JobTitle { get; set; }
 
     [MaxLength(500)] public string? Description { get; set; }
@@ -23,6 +21,7 @@ public class Vacancy : BaseEntity
     [MaxLength(100)] public string? EmploymentType { get; set; }
 
     public int? RandomId { get; set; }
+
     public int? RecruiterId { get; set; }
     /*
     public Employer Employer { get; set; } = null!;

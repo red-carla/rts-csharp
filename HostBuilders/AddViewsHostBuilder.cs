@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using RTS.Services;
 using RTS.ViewModels;
 
 namespace RTS.HostBuilders;

@@ -1,127 +1,124 @@
-﻿using RTS.Commands;
-using RTS.Services;
-using RTS.Stores;
-using System.Windows.Input;
+﻿using System.Windows.Input;
+using RTS.Commands;
 using RTS.Models;
+using RTS.Services;
 
-namespace RTS.ViewModels
+namespace RTS.ViewModels;
+
+public class AddCandidateViewModel : ViewModelBase
 {
-    public class AddCandidateViewModel : ViewModelBase
+    private readonly IDataService<Candidate> _candidateDataService;
+
+    private string _address = null!;
+
+    private string _avatar = null!;
+
+    private string _email = null!;
+
+    private string _name = null!;
+
+
+    private string _phone = null!;
+
+    private string _resumeLink = null!;
+
+    private string _status = null!;
+
+    private string _title = null!;
+
+    public AddCandidateViewModel(IDataService<Candidate> candidateDataService,
+        INavigationService closeNavigationService)
     {
-        
-        private readonly IDataService<Candidate> _candidateDataService;
-        
-        private string _name = null!;
+        _candidateDataService = candidateDataService;
+        SubmitCommand = new AddCandidateCommand(this, closeNavigationService);
+        CancelCommand = new NavigateCommand(closeNavigationService);
+    }
 
-        public string Name
+    public string Name
+    {
+        get => _name;
+        set
         {
-            get => _name;
-            set
-            {
-                _name = value;
-                OnPropertyChanged(nameof(Name));
-            }
+            _name = value;
+            OnPropertyChanged(nameof(Name));
         }
+    }
 
-        private string _title = null!;
-
-        public string Title
+    public string Title
+    {
+        get => _title;
+        set
         {
-            get { return _title; }
-            set
-            {
-                _title = value;
-                OnPropertyChanged(nameof(Title));
-            }
+            _title = value;
+            OnPropertyChanged(nameof(Title));
         }
+    }
 
-        private string _avatar = null!;
-
-        public string Avatar
+    public string Avatar
+    {
+        get => _avatar;
+        set
         {
-            get { return _avatar; }
-            set
-            {
-                _avatar = value;
-                OnPropertyChanged(nameof(Avatar));
-            }
+            _avatar = value;
+            OnPropertyChanged(nameof(Avatar));
         }
+    }
 
-        private string _resumeLink = null!;
-
-        public string ResumeLink
+    public string ResumeLink
+    {
+        get => _resumeLink;
+        set
         {
-            get { return _resumeLink; }
-            set
-            {
-                _resumeLink = value;
-                OnPropertyChanged(nameof(ResumeLink));
-            }
+            _resumeLink = value;
+            OnPropertyChanged(nameof(ResumeLink));
         }
+    }
 
-        private string _email = null!;
-
-        public string Email
+    public string Email
+    {
+        get => _email;
+        set
         {
-            get { return _email; }
-            set
-            {
-                _email = value;
-                OnPropertyChanged(nameof(Email));
-            }
+            _email = value;
+            OnPropertyChanged(nameof(Email));
         }
+    }
 
-
-        private string _phone = null!;
-
-        public string Phone
+    public string Phone
+    {
+        get => _phone;
+        set
         {
-            get { return _phone; }
-            set
-            {
-                _phone = value;
-                OnPropertyChanged(nameof(Phone));
-            }
+            _phone = value;
+            OnPropertyChanged(nameof(Phone));
         }
+    }
 
-        private string _address = null!;
-
-        public string Address
+    public string Address
+    {
+        get => _address;
+        set
         {
-            get { return _address; }
-            set
-            {
-                _address = value;
-                OnPropertyChanged(nameof(Address));
-            }
+            _address = value;
+            OnPropertyChanged(nameof(Address));
         }
+    }
 
-        private string _status = null!;
+    public string Status
+    {
+        get => _status;
+        set
+        {
+            _status = value;
+            OnPropertyChanged(nameof(Status));
+        }
+    }
 
-        public string Status
-        {
-            get { return _status; }
-            set
-            {
-                _status = value;
-                OnPropertyChanged(nameof(Status));
-            }
-        }
-        public ICommand SubmitCommand { get; }
-        public ICommand CancelCommand { get; }
+    public ICommand SubmitCommand { get; }
+    public ICommand CancelCommand { get; }
 
-        public AddCandidateViewModel(IDataService<Candidate> candidateDataService, INavigationService closeNavigationService)
-        {
-            _candidateDataService = candidateDataService;
-            SubmitCommand = new AddCandidateCommand(this, closeNavigationService);
-            CancelCommand = new NavigateCommand(closeNavigationService);
-        }
-        
-        public async Task AddCandidate(Candidate candidate)
-        {
-            await _candidateDataService.Create(candidate);
-            
-        }
-       
+    public async Task AddCandidate(Candidate candidate)
+    {
+        await _candidateDataService.Create(candidate);
     }
 }

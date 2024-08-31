@@ -1,9 +1,6 @@
-﻿using RTS.ViewModels;
+﻿namespace RTS.Services;
 
-namespace RTS.Services
+public interface INavigationService
 {
-    public interface INavigationService
-    {
-        void Navigate();
-    }
+    void Navigate();
 }

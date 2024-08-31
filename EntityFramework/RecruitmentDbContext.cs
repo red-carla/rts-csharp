@@ -1,12 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using RTS.Models;
 
 namespace RTS.EntityFramework;
 
 public class RecruitmentDbContext : DbContext
 {
-   
+    public RecruitmentDbContext(DbContextOptions<RecruitmentDbContext> options) : base(options)
+    {
+    }
+
     public virtual DbSet<Recruiter> Recruiters { get; set; } = null!;
     public virtual DbSet<Candidate> Candidates { get; set; } = null!;
     public virtual DbSet<Vacancy> Vacancies { get; set; } = null!;
@@ -14,10 +16,6 @@ public class RecruitmentDbContext : DbContext
     public virtual DbSet<JobApplication> JobApplications { get; set; } = null!;
     public DbSet<SeedHistory> SeedHistory { get; set; }
 
-    public RecruitmentDbContext(DbContextOptions<RecruitmentDbContext> options) : base(options)
-    {
-    }
-   
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         /*modelBuilder.Entity<Employer>(entity =>
@@ -49,7 +47,7 @@ public class RecruitmentDbContext : DbContext
             entity.Property(e => e.Name).HasMaxLength(100);
 
             entity.Property(e => e.PasswordHash).HasMaxLength(255);
-            
+
             entity.Property(e => e.RandomId).HasMaxLength(255);
 
             /*entity.HasOne(d => d.Employer)
@@ -121,11 +119,10 @@ public class RecruitmentDbContext : DbContext
             entity.Property(e => e.Location).HasMaxLength(255);
 
             entity.Property(e => e.Status).HasMaxLength(50);
-            
+
             entity.Property(e => e.RandomId).HasMaxLength(255);
-            
+
             entity.Property(e => e.RecruiterId).HasMaxLength(255);
-            
         });
 
         modelBuilder.Entity<JobApplication>(entity =>
@@ -156,10 +153,6 @@ public class RecruitmentDbContext : DbContext
                 .HasForeignKey(d => d.VacancyId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Application_Vacancy");
-
         });
-
-
-       
     }
 }

@@ -7,8 +7,8 @@ namespace RTS.Services;
 
 public class DatabaseSeederService : IHostedService
 {
-    private readonly IServiceProvider _serviceProvider;
     private readonly ILogger<DatabaseSeederService> _logger;
+    private readonly IServiceProvider _serviceProvider;
 
     public DatabaseSeederService(IServiceProvider serviceProvider, ILogger<DatabaseSeederService> logger)
     {
@@ -33,5 +33,5 @@ public class DatabaseSeederService : IHostedService
     public Task StopAsync(CancellationToken cancellationToken)
     {
         return Task.CompletedTask;
-    } 
+    }
 }

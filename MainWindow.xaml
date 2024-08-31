@@ -1,15 +1,17 @@
 ﻿<Window x:Class="RTS.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:RTS"
         xmlns:components="clr-namespace:RTS.Components"
         xmlns:custom="clr-namespace:ModalControl;assembly=ModalControl"
         xmlns:viewmodels="clr-namespace:RTS.ViewModels"
         xmlns:views="clr-namespace:RTS.Views"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Height="1000"
+        Width="1500"
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch"
+        HorizontalContentAlignment="Stretch"
+        VerticalContentAlignment="Stretch"
+        Title="Recruitment Tracking System">
     <Grid>
         <Grid.Resources>
             <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
@@ -27,13 +29,23 @@
             <DataTemplate DataType="{x:Type viewmodels:VacancyListingViewModel}">
                 <views:VacancyListingView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:JobApplicationListingViewModel}">
+                <views:JobApplicationListingView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:JobApplicationDetailViewModel}">
+                <views:JobApplicationDetailView />
+            </DataTemplate>
+
             <DataTemplate DataType="{x:Type viewmodels:AddCandidateViewModel}">
                 <views:AddCandidateView />
-            </DataTemplate> 
+            </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:AddVacancyViewModel}">
                 <views:AddVacancyView />
             </DataTemplate>
-           
+            <DataTemplate DataType="{x:Type viewmodels:AddJobApplicationViewModel}">
+                <views:AddJobApplicationView />
+            </DataTemplate>
+
             <DataTemplate DataType="{x:Type viewmodels:LayoutViewModel}">
                 <components:Layout />
             </DataTemplate>
@@ -43,6 +55,6 @@
             <ContentControl Content="{Binding CurrentModalViewModel}" />
         </custom:Modal>
 
-        <ContentControl Content="{Binding CurrentViewModel}" />
+        <ContentControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="{Binding CurrentViewModel}" />
     </Grid>
 </Window>

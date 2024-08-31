@@ -1,24 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
-namespace RTS.Commands
+namespace RTS.Commands;
+
+public abstract class CommandBase : ICommand
 {
-    public abstract class CommandBase : ICommand
+    public event EventHandler? CanExecuteChanged;
+
+    public virtual bool CanExecute(object? parameter)
     {
-        public event EventHandler? CanExecuteChanged;
+        return true;
+    }
 
-        public virtual bool CanExecute(object? parameter)
-        {
-            return true;
-        }
+    public abstract void Execute(object? parameter);
 
-        public abstract void Execute(object? parameter);
-
-        protected void OnCanExecuteChanged()
-        {
-            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
-        }
+    protected void OnCanExecuteChanged()
+    {
+        CanExecuteChanged?.Invoke(this, EventArgs.Empty);
     }
 }

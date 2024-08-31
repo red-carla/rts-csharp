@@ -1,19 +1,18 @@
 ﻿using RTS.Stores;
 
-namespace RTS.Commands
+namespace RTS.Commands;
+
+public class LogoutCommand : CommandBase
 {
-    public class LogoutCommand : CommandBase
+    private readonly AccountStore _accountStore;
+
+    public LogoutCommand(AccountStore accountStore)
     {
-        private readonly AccountStore _accountStore;
+        _accountStore = accountStore;
+    }
 
-        public LogoutCommand(AccountStore accountStore)
-        {
-            _accountStore = accountStore;
-        }
-
-        public override void Execute(object? parameter)
-        {
-            _accountStore.Logout();
-        }
+    public override void Execute(object? parameter)
+    {
+        _accountStore.Logout();
     }
 }

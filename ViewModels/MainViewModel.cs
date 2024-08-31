@@ -1,37 +1,33 @@
 ﻿using RTS.Stores;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace RTS.ViewModels
+namespace RTS.ViewModels;
+
+public class MainViewModel : ViewModelBase
 {
-    public class MainViewModel : ViewModelBase
+    private readonly ModalNavigationStore _modalNavigationStore;
+    private readonly NavigationStore _navigationStore;
+
+    public MainViewModel(NavigationStore navigationStore, ModalNavigationStore modalNavigationStore)
     {
-        private readonly NavigationStore _navigationStore;
-        private readonly ModalNavigationStore _modalNavigationStore;
+        _navigationStore = navigationStore;
+        _modalNavigationStore = modalNavigationStore;
 
-        public ViewModelBase? CurrentViewModel => _navigationStore.CurrentViewModel;
-        public ViewModelBase? CurrentModalViewModel => _modalNavigationStore.CurrentViewModel;
-        public bool IsOpen => _modalNavigationStore.IsOpen;
+        _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
+        _modalNavigationStore.CurrentViewModelChanged += OnCurrentModalViewModelChanged;
+    }
 
-        public MainViewModel(NavigationStore navigationStore, ModalNavigationStore modalNavigationStore)
-        {
-            _navigationStore = navigationStore;
-            _modalNavigationStore = modalNavigationStore;
+    public ViewModelBase? CurrentViewModel => _navigationStore.CurrentViewModel;
+    public ViewModelBase? CurrentModalViewModel => _modalNavigationStore.CurrentViewModel;
+    public bool IsOpen => _modalNavigationStore.IsOpen;
 
-            _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
-            _modalNavigationStore.CurrentViewModelChanged += OnCurrentModalViewModelChanged;
-        }
+    private void OnCurrentViewModelChanged()
+    {
+        OnPropertyChanged(nameof(CurrentViewModel));
+    }
 
-        private void OnCurrentViewModelChanged()
-        {
-            OnPropertyChanged(nameof(CurrentViewModel));
-        }
-
-        private void OnCurrentModalViewModelChanged()
-        {
-            OnPropertyChanged(nameof(CurrentModalViewModel));
-            OnPropertyChanged(nameof(IsOpen));
-        }
+    private void OnCurrentModalViewModelChanged()
+    {
+        OnPropertyChanged(nameof(CurrentModalViewModel));
+        OnPropertyChanged(nameof(IsOpen));
     }
 }

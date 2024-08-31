@@ -1,54 +1,53 @@
-﻿using RTS.Commands;
+﻿using System.Windows.Input;
+using RTS.Commands;
 using RTS.Services;
 using RTS.Stores;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Input;
 
-namespace RTS.ViewModels
+namespace RTS.ViewModels;
+
+public class NavigationBarViewModel : ViewModelBase
 {
-    public class NavigationBarViewModel : ViewModelBase
+    private readonly AccountStore _accountStore;
+
+    public NavigationBarViewModel(AccountStore accountStore,
+        INavigationService homeNavigationService,
+        INavigationService accountNavigationService,
+        INavigationService loginNavigationService,
+        INavigationService candidateListingNavigationService,
+        INavigationService vacancyListingNavigationService,
+        INavigationService jobApplicationListingNavigationService)
     {
-        private readonly AccountStore _accountStore;
+        _accountStore = accountStore;
+        NavigateHomeCommand = new NavigateCommand(homeNavigationService);
+        NavigateAccountCommand = new NavigateCommand(accountNavigationService);
+        NavigateLoginCommand = new NavigateCommand(loginNavigationService);
+        NavigateCandidateListingCommand = new NavigateCommand(candidateListingNavigationService);
+        NavigateVacancyListingCommand = new NavigateCommand(vacancyListingNavigationService);
+        NavigateJobApplicationListingCommand = new NavigateCommand(jobApplicationListingNavigationService);
+        LogoutCommand = new LogoutCommand(_accountStore);
 
-        public ICommand NavigateHomeCommand { get; }
-        public ICommand NavigateAccountCommand { get; }
-        public ICommand NavigateLoginCommand { get; }
-        public ICommand NavigateCandidateListingCommand { get; }
-        public ICommand NavigateVacancyListingCommand { get; }
-        public ICommand LogoutCommand { get; }
+        _accountStore.CurrentAccountChanged += OnCurrentAccountChanged;
+    }
 
-        public bool IsLoggedIn => _accountStore.IsLoggedIn;
+    public ICommand NavigateHomeCommand { get; }
+    public ICommand NavigateAccountCommand { get; }
+    public ICommand NavigateLoginCommand { get; }
+    public ICommand NavigateCandidateListingCommand { get; }
+    public ICommand NavigateVacancyListingCommand { get; }
+    public ICommand NavigateJobApplicationListingCommand { get; }
+    public ICommand LogoutCommand { get; }
 
-        public NavigationBarViewModel(AccountStore accountStore,
-            INavigationService homeNavigationService,
-            INavigationService accountNavigationService,
-            INavigationService loginNavigationService,
-            INavigationService candidateListingNavigationService,
-            INavigationService vacancyListingNavigationService)
-        {
-            _accountStore = accountStore;
-            NavigateHomeCommand = new NavigateCommand(homeNavigationService);
-            NavigateAccountCommand = new NavigateCommand(accountNavigationService);
-            NavigateLoginCommand = new NavigateCommand(loginNavigationService);
-            NavigateCandidateListingCommand = new NavigateCommand(candidateListingNavigationService);
-            NavigateVacancyListingCommand = new NavigateCommand(vacancyListingNavigationService);
-            LogoutCommand = new LogoutCommand(_accountStore);
+    public bool IsLoggedIn => _accountStore.IsLoggedIn;
 
-            _accountStore.CurrentAccountChanged += OnCurrentAccountChanged;
-        }
+    private void OnCurrentAccountChanged()
+    {
+        OnPropertyChanged(nameof(IsLoggedIn));
+    }
 
-        private void OnCurrentAccountChanged()
-        {
-            OnPropertyChanged(nameof(IsLoggedIn));
-        }
+    public override void Dispose()
+    {
+        _accountStore.CurrentAccountChanged -= OnCurrentAccountChanged;
 
-        public override void Dispose()
-        {
-            _accountStore.CurrentAccountChanged -= OnCurrentAccountChanged;
-
-            base.Dispose();
-        }
+        base.Dispose();
     }
 }

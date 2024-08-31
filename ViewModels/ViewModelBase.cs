@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
+﻿using System.ComponentModel;
 
-namespace RTS.ViewModels
+namespace RTS.ViewModels;
+
+public class ViewModelBase : INotifyPropertyChanged, IDisposable
 {
-    public class ViewModelBase : INotifyPropertyChanged, IDisposable
+    public virtual void Dispose()
     {
-        public event PropertyChangedEventHandler? PropertyChanged;
+    }
 
-        protected void OnPropertyChanged(string? propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+    public event PropertyChangedEventHandler? PropertyChanged;
 
-        public virtual void Dispose()
-        {
-        }
+    protected void OnPropertyChanged(string? propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

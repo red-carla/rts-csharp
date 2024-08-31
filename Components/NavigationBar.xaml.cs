@@ -1,17 +1,11 @@
-﻿
+﻿using System.Windows.Controls;
 
+namespace RTS.Components;
 
-using System.Windows.Controls;
-
-namespace RTS.Components
+public partial class NavigationBar : UserControl
 {
-   
-    public partial class NavigationBar : UserControl
+    public NavigationBar()
     {
-        public NavigationBar()
-        {
-            InitializeComponent();
-            
-        }
+        InitializeComponent();
     }
 }

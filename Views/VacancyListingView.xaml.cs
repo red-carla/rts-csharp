@@ -1,12 +1,11 @@
 ﻿using System.Windows.Controls;
 
-namespace RTS.Views
+namespace RTS.Views;
+
+public partial class VacancyListingView : UserControl
 {
-    public partial class VacancyListingView : UserControl
+    public VacancyListingView()
     {
-        public VacancyListingView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

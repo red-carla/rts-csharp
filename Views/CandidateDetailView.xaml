@@ -3,58 +3,62 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:local="clr-namespace:RTS.Views"
+        xmlns:converters="clr-namespace:RTS.Controls.Converters"
         mc:Ignorable="d"
-        Height="800" Width="500"
+        Height="700" Width="300"
         d:DesignHeight="700" d:DesignWidth="300">
     <Window.Resources>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converters:EditModeToButtonContentConverter x:Key="EditModeToButtonContentConverter" />
+        <converters:InverseBooleanToVisibilityConverter x:Key="InverseBoolToVisConverter"/>
     </Window.Resources>
     <Grid>
+
         <StackPanel Margin="10">
             <TextBlock Text="Candidate Details" FontSize="20" Margin="0,0,0,10" />
-            <Button Content="Edit"  Command="{Binding ToggleEditCommand}" />
+
 
             <TextBlock Text="{Binding Candidate.Id}" FontSize="16" />
             <TextBlock Text="{Binding Candidate.Name}" FontSize="14"
-                       Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=False}" />
+                       Visibility="{Binding IsEditing, Converter={StaticResource InverseBoolToVisConverter}}" />
             <TextBox Text="{Binding Candidate.Name}" FontSize="14"
-                     Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=True}" />
+                     Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
             <TextBlock Text="{Binding Candidate.Title}" FontSize="14"
-                       Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=False}" />
+                       Visibility="{Binding IsEditing, Converter={StaticResource InverseBoolToVisConverter}}" />
             <TextBox Text="{Binding Candidate.Title}" FontSize="14"
-                     Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=True}" />
+                     Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
             <TextBlock Text="{Binding Candidate.Email}" FontSize="14"
-                       Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=False}" />
+                       Visibility="{Binding IsEditing, Converter={StaticResource InverseBoolToVisConverter}}" />
             <TextBox Text="{Binding Candidate.Email}" FontSize="14"
-                     Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=True}" />
+                     Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
             <TextBlock Text="{Binding Candidate.Phone}" FontSize="14"
-                       Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=False}" />
+                       Visibility="{Binding IsEditing, Converter={StaticResource InverseBoolToVisConverter}}" />
             <TextBox Text="{Binding Candidate.Phone}" FontSize="14"
-                     Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=True}" />
+                     Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
             <TextBlock Text="{Binding Candidate.Address}" FontSize="14"
-                       Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=False}" />
+                       Visibility="{Binding IsEditing, Converter={StaticResource InverseBoolToVisConverter}}" />
             <TextBox Text="{Binding Candidate.Address}" FontSize="14"
-                     Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=True}" />
+                     Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
             <TextBlock Text="{Binding Candidate.ResumeLink}" FontSize="14"
-                       Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=False}" />
+                       Visibility="{Binding IsEditing, Converter={StaticResource InverseBoolToVisConverter}}" />
             <TextBox Text="{Binding Candidate.ResumeLink}" FontSize="14"
-                     Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=True}" />
-
+                     Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}" />
             <TextBlock Text="{Binding Candidate.Status}" FontSize="14"
-                       Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=False}" />
+                       Visibility="{Binding IsEditing, Converter={StaticResource InverseBoolToVisConverter}}" />
             <TextBox Text="{Binding Candidate.Status}" FontSize="14"
-                     Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=True}" />
-
-           
-            <Button Content="Save" Command="{Binding SaveCommand}"
-                    Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=True}" />
-
+                     Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <Button Command="{Binding EditCommand}"
+                    Content="{Binding IsEditing, Converter={StaticResource EditModeToButtonContentConverter}}"
+                    Margin="0 0 0 10" />
+            <Button Command="{Binding SaveCommand}" Content="Save"
+                    Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    Margin="0 0 0 10" />
+            <Button Command="{Binding DeleteCommand}" Content="Delete" />
+            <!--TODO: show confirmation of deletion and close window-->
         </StackPanel>
 
     </Grid>

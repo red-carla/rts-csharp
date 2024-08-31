@@ -1,20 +1,18 @@
-﻿
-using RTS.Services;
+﻿using RTS.Services;
 
-namespace RTS.Commands
+namespace RTS.Commands;
+
+public class NavigateCommand : CommandBase
 {
-    public class NavigateCommand : CommandBase
+    private readonly INavigationService _navigationService;
+
+    public NavigateCommand(INavigationService navigationService)
     {
-        private readonly INavigationService _navigationService;
+        _navigationService = navigationService;
+    }
 
-        public NavigateCommand(INavigationService navigationService)
-        {
-            _navigationService = navigationService;
-        }
-
-        public override void Execute(object? parameter)
-        {
-            _navigationService.Navigate();
-        }
+    public override void Execute(object? parameter)
+    {
+        _navigationService.Navigate();
     }
 }

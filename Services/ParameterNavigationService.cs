@@ -1,26 +1,22 @@
 ﻿using RTS.Stores;
 using RTS.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace RTS.Services
+namespace RTS.Services;
+
+public class ParameterNavigationService<TParameter, TViewModel>
+    where TViewModel : ViewModelBase
 {
-    public class ParameterNavigationService<TParameter, TViewModel>
-        where TViewModel : ViewModelBase
+    private readonly Func<TParameter, TViewModel> _createViewModel;
+    private readonly NavigationStore _navigationStore;
+
+    public ParameterNavigationService(NavigationStore navigationStore, Func<TParameter, TViewModel> createViewModel)
     {
-        private readonly NavigationStore _navigationStore;
-        private readonly Func<TParameter, TViewModel> _createViewModel;
+        _navigationStore = navigationStore;
+        _createViewModel = createViewModel;
+    }
 
-        public ParameterNavigationService(NavigationStore navigationStore, Func<TParameter, TViewModel> createViewModel)
-        {
-            _navigationStore = navigationStore;
-            _createViewModel = createViewModel;
-        }
-
-        public void Navigate(TParameter parameter)
-        {
-            _navigationStore.CurrentViewModel = _createViewModel(parameter);
-        }
+    public void Navigate(TParameter parameter)
+    {
+        _navigationStore.CurrentViewModel = _createViewModel(parameter);
     }
 }

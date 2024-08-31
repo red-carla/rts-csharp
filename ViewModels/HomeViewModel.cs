@@ -1,19 +1,14 @@
-﻿using RTS.Commands;
+﻿using System.Windows.Input;
+using RTS.Commands;
 using RTS.Services;
-using RTS.Stores;
-using System.Windows.Input;
 
-namespace RTS.ViewModels
+namespace RTS.ViewModels;
+
+public class HomeViewModel : ViewModelBase
 {
-    public class HomeViewModel : ViewModelBase
+    public HomeViewModel(INavigationService loginNavigationService)
     {
-        public string WelcomeMessage => "Welcome to my application.";
-
-        public ICommand NavigateLoginCommand { get; }
-
-        public HomeViewModel(INavigationService loginNavigationService)
-        {
-            NavigateLoginCommand = new NavigateCommand(loginNavigationService);
-        }
+        NavigateLoginCommand = new NavigateCommand(loginNavigationService);
     }
+    public ICommand NavigateLoginCommand { get; }
 }
