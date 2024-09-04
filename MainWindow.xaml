@@ -1,17 +1,26 @@
-﻿<Window x:Class="RTS.MainWindow"
+﻿<ui:FluentWindow x:Class="RTS.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:components="clr-namespace:RTS.Components"
         xmlns:custom="clr-namespace:ModalControl;assembly=ModalControl"
         xmlns:viewmodels="clr-namespace:RTS.ViewModels"
         xmlns:views="clr-namespace:RTS.Views"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         Height="1000"
         Width="1500"
         HorizontalAlignment="Stretch"
         VerticalAlignment="Stretch"
         HorizontalContentAlignment="Stretch"
         VerticalContentAlignment="Stretch"
-        Title="Recruitment Tracking System">
+        Title="Recruitment Tracking System"
+        ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+        ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+        ExtendsContentIntoTitleBar="True"
+        Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+        WindowBackdropType="Mica"
+        WindowCornerPreference="Round"
+        WindowStartupLocation="CenterScreen"
+        >
     <Grid>
         <Grid.Resources>
             <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
@@ -45,7 +54,6 @@
             <DataTemplate DataType="{x:Type viewmodels:AddJobApplicationViewModel}">
                 <views:AddJobApplicationView />
             </DataTemplate>
-
             <DataTemplate DataType="{x:Type viewmodels:LayoutViewModel}">
                 <components:Layout />
             </DataTemplate>
@@ -54,7 +62,7 @@
         <custom:Modal Panel.ZIndex="1" IsOpen="{Binding IsOpen}">
             <ContentControl Content="{Binding CurrentModalViewModel}" />
         </custom:Modal>
-
+       
         <ContentControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="{Binding CurrentViewModel}" />
     </Grid>
-</Window>
+</ui:FluentWindow>

@@ -1,8 +1,9 @@
 ﻿using System.Windows;
+using Wpf.Ui.Controls;
 
 namespace RTS.Views;
 
-public partial class VacancyDetailView : Window
+public partial class VacancyDetailView : FluentWindow
 {
     public VacancyDetailView()
     {

@@ -2,12 +2,17 @@
     x:Class="RTS.Views.AddJobApplicationView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="400"
-    d:DesignWidth="600"
-    mc:Ignorable="d">
-    <Grid Margin="10">
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch"
+    HorizontalContentAlignment="Stretch"
+    VerticalContentAlignment="Stretch"
+    Background="{DynamicResource ApplicationBackgroundBrush}"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    Effect="{x:Null}"
+    Width="400"
+    >
+    <Grid Margin="16" Grid.IsSharedSizeScope="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -16,34 +21,49 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+        
+        <ui:TextBlock Grid.Row="0"  Text="Create New Job Application" FontSize="20" FontWeight="Bold" Margin="4 4 4 16"
+                      />
+        <Grid Grid.Row="1" Margin="0 20 0 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" SharedSizeGroup="Label" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Add Job Application" FontSize="20" FontWeight="Bold"
-                   Margin="20" />
-
-        <TextBlock Grid.Row="1" Grid.Column="0" Text="Candidate:" VerticalAlignment="Center" Margin="0,5" />
-        <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Candidates}"
-                  SelectedItem="{Binding SelectedCandidate}" DisplayMemberPath="Name" Margin="0,5" />
-
-     
-        <TextBlock Grid.Row="2" Grid.Column="0" Text="Vacancy:" VerticalAlignment="Center" Margin="0,5" />
-        <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Vacancies}"
-                  SelectedItem="{Binding SelectedVacancy}" DisplayMemberPath="JobTitle" Margin="0,5" />
-
-        <TextBlock Grid.Row="3" Grid.Column="0" Text="Application Stage:" VerticalAlignment="Center" Margin="0,5" />
-        <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding ApplicationStages}"
+        <ui:TextBlock  Grid.Column="0"  Text="Candidate:" VerticalAlignment="Center" Margin="8" />
+        <ComboBox Grid.Column="1"  ItemsSource="{Binding Candidates}"
+                  SelectedItem="{Binding SelectedCandidate}" DisplayMemberPath="Name" Margin="8" />
+</Grid>
+        <Grid Grid.Row="2" Margin="0 20 0 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" SharedSizeGroup="Label" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+        <ui:TextBlock Grid.Column="0" Text="Vacancy:" VerticalAlignment="Center" Margin="8" />
+        <ComboBox  Grid.Column="1" ItemsSource="{Binding Vacancies}"
+                  SelectedItem="{Binding SelectedVacancy}" DisplayMemberPath="JobTitle" Margin="8" />
+</Grid>
+        <Grid Grid.Row="3" Margin="0 20 0 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" SharedSizeGroup="Label" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+        <ui:TextBlock  Grid.Column="0" Text="Application Stage:" VerticalAlignment="Center" Margin="8" />
+        <ComboBox  Grid.Column="1" ItemsSource="{Binding ApplicationStages}"
                   SelectedItem="{Binding SelectedApplicationStage}" DisplayMemberPath="ApplicationStageName"
-                  Margin="0,5" />
-
-       
-        <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right"
-                    Margin="0,20,0,0">
-            <Button Content="Submit" Command="{Binding SubmitCommand}" Width="100" Margin="5" />
-            <Button Content="Cancel" Command="{Binding CancelCommand}" Width="100" Margin="5" />
+                  Margin="8" />
+</Grid>
+        <Grid Grid.Row="5" Margin="0 20 0 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" SharedSizeGroup="Label" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+        <StackPanel  Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right"
+                    Margin="0 8">
+            <ui:Button Content="Submit" Command="{Binding SubmitCommand}" Width="100" Margin="8" />
+            <ui:Button Content="Cancel" Command="{Binding CancelCommand}" Width="100" Margin="8" />
         </StackPanel>
+            </Grid>
     </Grid>
+
 </UserControl>

@@ -4,94 +4,33 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-
-    Background="DarkSlateBlue"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:converters="clr-namespace:RTS.Converters"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <Style TargetType="Button">
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Foreground" Value="White" />
-            <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="Cursor" Value="Hand" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <TextBlock Text="{TemplateBinding Content}" />
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="Button">
-                                <TextBlock Text="{TemplateBinding Content}" TextDecorations="Underline" />
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converters:PageToBooleanConverter x:Key="PageToBooleanConverter" />
     </UserControl.Resources>
-    <Grid MaxWidth="1000" Margin="20 10">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
-        </Grid.ColumnDefinitions>
-        <Button
-            Grid.Column="0"
-            FontSize="18"
-            Margin="10 0 10 0"
-            Command="{Binding NavigateHomeCommand}"
-            Content="Home" />
+    <ui:NavigationView PaneDisplayMode="Top" MinHeight="50"
+                       Margin="10 0"
+                       IsBackButtonVisible="Collapsed"
+                       IsPaneToggleVisible="False">
+        <ui:NavigationView.MenuItems>
+            <ui:NavigationViewItem Content="Home"
+                                   Command="{Binding NavigateHomeCommand}"
+                                   Tag="Home" />
+            <ui:NavigationViewItem Content="Candidates"
+                                   Command="{Binding NavigateCandidateListingCommand}"
+                                   Tag="Candidates" />
+            <ui:NavigationViewItem Content="Vacancies"
+                                   Command="{Binding NavigateVacancyListingCommand}"
+                                   Tag="Vacancies" />
+            <ui:NavigationViewItem Content="Job Applications"
+                                   Command="{Binding NavigateJobApplicationListingCommand}"
+                                   Tag="Job Applications" />
+        </ui:NavigationView.MenuItems>
+        <ui:NavigationView.FooterMenuItems>
+            <ui:NavigationViewItem Content="Logout" Command="{Binding LogoutCommand}" />
+        </ui:NavigationView.FooterMenuItems>
 
-        <Button
-            Grid.Column="1"
-            FontSize="18"
-            Margin="10 0 10 0"
-            Command="{Binding NavigateCandidateListingCommand}"
-            Content="Candidates" />
-        <Button
-            Grid.Column="2"
-            FontSize="18"
-            Margin="10 0 10 0"
-            Command="{Binding NavigateVacancyListingCommand}"
-            Content="Vacancies" />
-        <Button
-            Grid.Column="3"
-            FontSize="18"
-            Margin="10 0 10 0"
-            Command="{Binding NavigateJobApplicationListingCommand}"
-            Content="Applications" />
-        <Button
-            Grid.Column="4"
-            FontSize="18"
-            Margin="10 0 10 0"
-            Command="{Binding NavigateLoginCommand}"
-            Content="Login"
-            Visibility="{Binding IsLoggedIn, Converter={StaticResource InverseBoolToVisConverter}}" />
-
-        <Button
-            Grid.Column="5"
-            FontSize="18"
-            Margin="10 0 10 0"
-            Command="{Binding NavigateAccountCommand}"
-            Content="Account"
-            Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}" />
-
-        <Button
-            Grid.Column="6"
-            FontSize="18"
-            Margin="10 0 10 0"
-            Command="{Binding LogoutCommand}"
-            Content="Logout"
-            Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}" />
-
-    </Grid>
+    </ui:NavigationView>
 </UserControl>

@@ -9,6 +9,7 @@ using RTS.Models;
 using RTS.Services;
 using RTS.Stores;
 using RTS.ViewModels;
+using Wpf.Ui.Controls;
 using Application = System.Windows.Application;
 
 namespace RTS;
@@ -48,10 +49,6 @@ public partial class App : Application
 
                 services.AddTransient<HomeViewModel>(s => new HomeViewModel(CreateLoginNavigationService(s)));
 
-                services.AddTransient<AccountViewModel>(s => new AccountViewModel(
-                    s.GetRequiredService<AccountStore>(),
-                    CreateHomeNavigationService(s)));
-
                 services.AddTransient(CreateLoginViewModel);
 
                 services.AddTransient<CandidateListingViewModel>(s => new CandidateListingViewModel(
@@ -75,6 +72,12 @@ public partial class App : Application
                     s.GetRequiredService<IDataService<Vacancy>>(),
                     s.GetRequiredService<IDataService<ApplicationStage>>(),
                     CreateAddJobApplicationNavigationService(s)
+                ));
+                services.AddTransient<AccountViewModel>(s => new AccountViewModel(
+                    s.GetRequiredService<AccountStore>(),
+                    CreateHomeNavigationService(s),
+                    s.GetRequiredService<IDataService<Vacancy>>(),
+                    s.GetRequiredService<IDataService<Candidate>>()
                 ));
 
 
@@ -108,9 +111,9 @@ public partial class App : Application
 
     private INavigationService CreateHomeNavigationService(IServiceProvider serviceProvider)
     {
-        return new LayoutNavigationService<HomeViewModel>(
+        return new LayoutNavigationService<LoginViewModel>(
             serviceProvider.GetRequiredService<NavigationStore>(),
-            serviceProvider.GetRequiredService<HomeViewModel>,
+            serviceProvider.GetRequiredService<LoginViewModel>,
             serviceProvider.GetRequiredService<NavigationBarViewModel>);
     }
 

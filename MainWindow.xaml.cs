@@ -1,15 +1,16 @@
 ﻿using System.Windows;
+using System.Windows.Input;
+using Wpf.Ui.Controls; 
 
-namespace RTS;
-
-/// <summary>
-///     Interaction logic for MainWindow.xaml
-/// </summary>
-public partial class MainWindow : Window
+namespace RTS
 {
-    public MainWindow(object dataContext)
+    public partial class MainWindow : FluentWindow
     {
-        InitializeComponent();
-        DataContext = dataContext;
+        public MainWindow(object dataContext)
+        {
+            InitializeComponent();
+           DataContext = dataContext;
+           
+        }
     }
 }

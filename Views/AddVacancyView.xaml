@@ -1,12 +1,16 @@
 ﻿<UserControl x:Class="RTS.Views.AddVacancyView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             mc:Ignorable="d"
-             d:DesignHeight="500" d:DesignWidth="300">
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             HorizontalAlignment="Stretch"
+             VerticalAlignment="Stretch"
+             HorizontalContentAlignment="Stretch"
+             VerticalContentAlignment="Stretch"
+             Background="{DynamicResource ApplicationBackgroundBrush}"
+             Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+             Width="400">
     <Grid
-        Margin="20"
+        Margin="16"
         Grid.IsSharedSizeScope="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -22,133 +26,114 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <TextBlock
-            Grid.Row="0"
-            HorizontalAlignment="Left"
-            FontSize="28"
-            Text="Create Vacancy" />
-
-        <Grid Grid.Row="1" Margin="0 20 0 0">
+        <ui:TextBlock Grid.Row="0" Text="Create New Vacancy" FontSize="20" FontWeight="Bold" Margin="4 4 4 16" />
+        <Grid Grid.Row="1" Margin="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" SharedSizeGroup="Label" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock
+            <ui:TextBlock
                 Grid.Column="0"
                 VerticalAlignment="Center"
-                Text="Job" />
-            <TextBox
+                Text="Job Title"
+                Margin="8" />
+            <ui:TextBox
                 Grid.Column="1"
-                Margin="10 0 0 0"
+                Margin="8"
                 Text="{Binding JobTitle}" />
         </Grid>
 
-        <Grid Grid.Row="2" Margin="0 10 0 0">
+        <Grid Grid.Row="2" Margin="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" SharedSizeGroup="Label" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock
+            <ui:TextBlock
                 Grid.Column="0"
                 VerticalAlignment="Center"
-                Text="Description" />
-            <TextBox
+                Text="Description"
+                Margin="8" />
+            <ui:TextBox
                 Grid.Column="1"
-                Margin="10 0 0 0"
+                Margin="8"
                 Text="{Binding Description}" />
         </Grid>
 
-        <Grid Grid.Row="3" Margin="0 10 0 0">
+        <Grid Grid.Row="3" Margin="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" SharedSizeGroup="Label" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock
+            <ui:TextBlock
                 Grid.Column="0"
                 VerticalAlignment="Center"
-                Text="Status" />
-            <TextBox
+                Text="Status" Margin="8" />
+            <ui:TextBox
                 Grid.Column="1"
-                Margin="10 0 0 0"
-                Text="{Binding Status}" />
+                Text="{Binding Status}" Margin="8" />
         </Grid>
-        <Grid Grid.Row="4" Margin="0 10 0 0">
+        <Grid Grid.Row="4" Margin="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" SharedSizeGroup="Label" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock
+            <ui:TextBlock
                 Grid.Column="0"
                 VerticalAlignment="Center"
-                Text="Description" />
-            <TextBox
+                Text="Education" Margin="8" />
+            <ui:TextBox
                 Grid.Column="1"
-                Margin="10 0 0 0"
-                Text="{Binding Description}" />
-        </Grid>
-        <Grid Grid.Row="5" Margin="0 10 0 0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" SharedSizeGroup="Label" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <TextBlock
-                Grid.Column="0"
-                VerticalAlignment="Center"
-                Text="Education" />
-            <TextBox
-                Grid.Column="1"
-                Margin="10 0 0 0"
+                Margin="8"
                 Text="{Binding EduReq}" />
         </Grid>
-        <Grid Grid.Row="6" Margin="0 10 0 0">
+        <Grid Grid.Row="5" Margin="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" SharedSizeGroup="Label" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock
+            <ui:TextBlock
                 Grid.Column="0"
                 VerticalAlignment="Center"
-                Text="Experience" />
-            <TextBox
+                Text="Experience" Margin="8" />
+            <ui:TextBox
                 Grid.Column="1"
-                Margin="10 0 0 0"
+                Margin="8"
                 Text="{Binding ExperienceReq}" />
         </Grid>
-        <Grid Grid.Row="7" Margin="0 10 0 0">
+        <Grid Grid.Row="6" Margin="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" SharedSizeGroup="Label" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock
+            <ui:TextBlock
                 Grid.Column="0"
                 VerticalAlignment="Center"
-                Text="Location" />
-            <TextBox
+                Text="Location" Margin="8" />
+            <ui:TextBox
                 Grid.Column="1"
-                Margin="10 0 0 0"
+                Margin="8"
                 Text="{Binding Location}" />
         </Grid>
         <StackPanel
-            Grid.Row="10"
-            Margin="0 20 0 0"
-            Orientation="Horizontal">
-            <Button
-                Padding="10 5"
+            Grid.Row="7"
+            Margin="0 8"
+            Orientation="Horizontal" HorizontalAlignment="Right">
+            <ui:Button
+                Width="100"
+                Margin="8"
                 Command="{Binding SubmitCommand}"
                 Content="Submit" />
-            <Button
-                Margin="5 0 0 0"
-                Padding="10 5"
+            <ui:Button
+                Width="100"
+                Margin="8"
                 Command="{Binding CancelCommand}"
                 Content="Cancel" />
         </StackPanel>
     </Grid>
-
 </UserControl>

@@ -6,7 +6,11 @@
     HorizontalAlignment="Stretch"
     VerticalAlignment="Stretch"
     HorizontalContentAlignment="Stretch"
-    VerticalContentAlignment="Stretch">
+    VerticalContentAlignment="Stretch"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+    ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="80" />
@@ -17,50 +21,48 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Grid.Row="0" FontSize="28" Text="Job Applications" Margin="10 10 0 0 " />
-            <Button Grid.Column="1" Grid.Row="0"
-                   
-                    Command="{Binding AddJobApplicationCommand}"
-                    ToolTip="Add New Job Application"
-                    Margin="10 5">
-               
-            </Button>
+            <ui:TextBlock Grid.Column="0" Grid.Row="0" FontSize="28" Text="Job Applications" Margin="10 10 0 0 " />
+            <ui:Button Grid.Column="1" Grid.Row="0"
+                       Command="{Binding AddJobApplicationCommand}"
+                       ToolTip="Add New Job Application" Margin="10 5">
+                <ui:SymbolIcon Symbol="Add12" />
+            </ui:Button>
         </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" Background="#f4f4f4" Margin="5,5,5,5">
-                <TextBlock Text="Filters" FontWeight="Bold" Margin="0 0 0 10" Padding="5,5,5,0" />
-                <TextBox Text="{Binding NameFilter, UpdateSourceTrigger=PropertyChanged}" Margin="0 0 0 10" />
-                <Button Content="Apply Filters" />
+            <StackPanel Grid.Column="0" Margin="5,5,5,5">
+                <ui:TextBlock Text="Filters" FontWeight="Bold" Margin="0 0 0 10" Padding="5,5,5,0" />
+                <ui:TextBox Text="{Binding NameFilter, UpdateSourceTrigger=PropertyChanged}" Margin="0 0 0 10" />
+                <ui:Button Content="Apply Filters" />
 
             </StackPanel>
 
 
             <Grid Grid.Column="1">
-                <ListView ItemsSource="{Binding JobApplications}" SelectedItem="{Binding SelectedJobApplication}"
+                <ui:ListView ItemsSource="{Binding JobApplications}" SelectedItem="{Binding SelectedJobApplication}"
                           SelectionMode="Single">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDoubleClick">
                             <i:InvokeCommandAction Command="{Binding OpenDetailCommand}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="Vacancy" DisplayMemberBinding="{Binding Vacancy.JobTitle}" />
-                            <GridViewColumn Header="Candidate" DisplayMemberBinding="{Binding Candidate.Name}" />
-                            <GridViewColumn Header="Application Stage"
-                                            DisplayMemberBinding="{Binding ApplicationStage.ApplicationStageName}" />
-                            <GridViewColumn Header="Date Created"
-                                            DisplayMemberBinding="{Binding CreatedAt, StringFormat='{}{0:dd-MM-yyyy}'}" />
-                            <GridViewColumn Header="Date Updated"
-                                            DisplayMemberBinding="{Binding UpdatedAt, StringFormat='{}{0:dd-MM-yyyy}'}" />
+                    <ui:ListView.View>
+                        <ui:GridView>
+                            <ui:GridViewColumn Header="Vacancy" DisplayMemberBinding="{Binding Vacancy.JobTitle}" Width="250" />
+                            <ui:GridViewColumn Header="Candidate" DisplayMemberBinding="{Binding Candidate.Name}"  Width="250"/>
+                            <ui:GridViewColumn Header="Application Stage"
+                                            DisplayMemberBinding="{Binding ApplicationStage.ApplicationStageName}"  Width="250"/>
+                            <ui:GridViewColumn Header="Date Created"
+                                               DisplayMemberBinding="{Binding CreatedAt, StringFormat='{}{0:dd-MM-yyyy}'}"  Width="250"/>
+                            <ui:GridViewColumn Header="Date Updated"
+                                               DisplayMemberBinding="{Binding UpdatedAt, StringFormat='{}{0:dd-MM-yyyy}'}"  Width="250"/>
 
-                        </GridView>
-                    </ListView.View>
-                </ListView>
+                        </ui:GridView>
+                    </ui:ListView.View>
+                </ui:ListView>
             </Grid>
         </Grid>
     </Grid>

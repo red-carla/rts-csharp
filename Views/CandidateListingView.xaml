@@ -3,22 +3,16 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     HorizontalAlignment="Stretch"
     VerticalAlignment="Stretch"
     HorizontalContentAlignment="Stretch"
-    VerticalContentAlignment="Stretch">
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBox.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.DataGrid.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ListView.xaml" />
-                </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-        
-        </UserControl.Resources>
+    VerticalContentAlignment="Stretch"
+    ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+    ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    >
+   
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="80" />
@@ -29,50 +23,49 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Grid.Row="0" FontSize="28" Text="Candidates" Margin="10 10 0 0 " />
-            <Button Grid.Column="1" Grid.Row="0"
-                   
-                    Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+            <ui:TextBlock Grid.Column="0" Grid.Row="0" FontSize="28" Text="Candidates" Margin="10 10 0 0 " />
+            <ui:Button Grid.Column="1" Grid.Row="0"
                     Command="{Binding AddCandidateCommand}"
-                    ToolTip="Add New Candidate"
-                    Margin="10 5">
+                    ToolTip="Add New Candidate" Margin="10 5">
+                    <ui:SymbolIcon Symbol="Add12"/>
                
-            </Button>
+            </ui:Button>
         </Grid>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" Background="#f4f4f4" Margin="5,5,5,5">
-                <TextBlock Text="Filters" FontWeight="Bold" Margin="0 0 0 10" Padding="5,5,5,0" />
-                <TextBox Text="{Binding NameFilter, UpdateSourceTrigger=PropertyChanged}" Margin="0 0 0 10" />
-                <Button Content="Apply Filters" />
+            <StackPanel Grid.Column="0"  Margin="5,5,5,5">
+                <ui:TextBlock Text="Filters" FontWeight="Bold" Margin="0 0 0 10" Padding="5,5,5,0" />
+                <ui:TextBox Text="{Binding NameFilter, UpdateSourceTrigger=PropertyChanged}" Margin="0 0 0 10" />
+                <ui:Button Content="Apply Filters" />
+                
 
             </StackPanel>
 
 
             <Grid Grid.Column="1">
-                <ListView ItemsSource="{Binding Candidates}" SelectedItem="{Binding SelectedCandidate}"
+                <ui:ListView ItemsSource="{Binding Candidates}" SelectedItem="{Binding SelectedCandidate}"
                           SelectionMode="Single">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDoubleClick">
                             <i:InvokeCommandAction Command="{Binding OpenDetailCommand}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}" />
-                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
-                            <GridViewColumn Header="Phone" DisplayMemberBinding="{Binding Phone}" />
-                            <GridViewColumn Header="Address" DisplayMemberBinding="{Binding Address}" />
-                            <GridViewColumn Header="Email" DisplayMemberBinding="{Binding Email}" />
-                            <GridViewColumn Header="ResumeLink" DisplayMemberBinding="{Binding ResumeLink}" />
-                            <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" />
-                            <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" />
-                        </GridView>
-                    </ListView.View>
-                </ListView>
+                    <ui:ListView.View>
+                        <ui:GridView>
+                            <ui:GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}" />
+                            <ui:GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
+                            <ui:GridViewColumn Header="Phone" DisplayMemberBinding="{Binding Phone}" />
+                            <ui:GridViewColumn Header="Address" DisplayMemberBinding="{Binding Address}" />
+                            <ui:GridViewColumn Header="Email" DisplayMemberBinding="{Binding Email}" />
+                            <ui:GridViewColumn Header="ResumeLink" DisplayMemberBinding="{Binding ResumeLink}" />
+                            <ui:GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" />
+                            <ui:GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" />
+                        </ui:GridView>
+                    </ui:ListView.View>
+                </ui:ListView>
             </Grid>
         </Grid>
     </Grid>

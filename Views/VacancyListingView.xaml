@@ -3,8 +3,12 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     HorizontalAlignment="Stretch"
-    VerticalAlignment="Stretch">
+    VerticalAlignment="Stretch"
+    ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+    ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="80" />
@@ -15,14 +19,14 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Grid.Row="0" FontSize="28" Text="Vacancies" Margin="10 10 0 0" />
+            <ui:TextBlock Grid.Column="0" Grid.Row="0" FontSize="28" Text="Vacancies" Margin="10 10 0 0" />
 
-            <Button Grid.Column="1" Grid.Row="0"
-                    Command="{Binding AddVacancyCommand}"
-                    ToolTip="Add New Vacancy"
-                    Margin="10 5">
-               
-            </Button>
+            <ui:Button Grid.Column="1" Grid.Row="0"
+                       Command="{Binding AddVacancyCommand}"
+                       ToolTip="Add New Vacancy"
+                       Margin="10 5"
+                       Icon="{ui:SymbolIcon Add32}">
+            </ui:Button>
         </Grid>
         <Grid Grid.Row="1">
 
@@ -32,54 +36,41 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Column="0" Background="#f4f4f4" Margin="5,5,5,5">
-                <TextBlock Text="Filters" FontWeight="SemiBold"  FontSize="16" Margin="5" Padding="5" />
-              
-                    
-                <TextBox Text="{Binding NameFilter, UpdateSourceTrigger=PropertyChanged}" Margin="10" Padding="5"/>
-              
-                <Button Content="Apply Filters" Margin="10" />
+            <StackPanel Grid.Column="0" Margin="5,5,5,5">
+                <ui:TextBlock Text="Filters" FontWeight="SemiBold" FontSize="16" Margin="5" Padding="5" />
+                <ui:TextBox Text="{Binding NameFilter, UpdateSourceTrigger=PropertyChanged}" Margin="10" Padding="5"
+                            PlaceholderText="Search By Job Title" />
+                <ui:TextBox Text="{Binding LocationFilter, UpdateSourceTrigger=PropertyChanged}" Margin="10"
+                            Padding="5" PlaceholderText="Search By Location" />
+
+
+                <ui:Button Content="Apply Filters" Margin="10" />
 
             </StackPanel>
 
-
-            <DataGrid Grid.Column="1" HeadersVisibility="All" AutoGenerateColumns="False"
-                      ItemsSource="{Binding VacanciesView}" SelectedItem="{Binding SelectedVacancy}"
-                      SelectionMode="Single" HorizontalContentAlignment="Center" FontSize="14"
-                      FontStretch="ExtraExpanded" VerticalScrollBarVisibility="Visible"
-                      ScrollViewer.CanContentScroll="True" Margin="10">
-                <b:Interaction.Triggers>
-                    <b:EventTrigger EventName="MouseDoubleClick">
-                        <b:InvokeCommandAction Command="{Binding OpenDetailCommand}" />
-                    </b:EventTrigger>
-                </b:Interaction.Triggers>
-                <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding JobTitle}" Header="Job Title"
-                                        
-                                        IsReadOnly="True" />
-                    <DataGridTextColumn Binding="{Binding Status}" Header="Status"
-                                       
-                                        IsReadOnly="True" />
-                    <DataGridTextColumn Binding="{Binding DatePosted}" Header="Date Posted"
-                                       
-                                        IsReadOnly="True" />
-                    <DataGridTextColumn Binding="{Binding EducationReq}" Header="Education"
-                                       
-                                        IsReadOnly="True" />
-                    <DataGridTextColumn Binding="{Binding ExperienceReq}" Header="Years of Experience"
-                                       
-                                        IsReadOnly="True" />
-                    <DataGridTextColumn Binding="{Binding Location}" Header="Location"
-                                       
-                                        IsReadOnly="True" />
-                    <DataGridTextColumn Binding="{Binding EmploymentType}" Header="Contract Type"
-                                       
-                                        IsReadOnly="True" />
-                    <DataGridTextColumn Binding="{Binding Description}" Header="Job Description"
-                                   
-                                        IsReadOnly="True" />
-                </DataGrid.Columns>
-            </DataGrid>
+            <Grid Grid.Column="1">
+                <ui:ListView ItemsSource="{Binding Vacancies}" SelectedItem="{Binding SelectedVacancy}"
+                             SelectionMode="Single">
+                    <b:Interaction.Triggers>
+                        <b:EventTrigger EventName="MouseDoubleClick">
+                            <b:InvokeCommandAction Command="{Binding OpenDetailCommand}" />
+                        </b:EventTrigger>
+                    </b:Interaction.Triggers>
+                    <ui:ListView.View>
+                        <ui:GridView>
+                            <ui:GridViewColumn Header="Job Title" DisplayMemberBinding="{Binding JobTitle}" />
+                            <ui:GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" />
+                            <ui:GridViewColumn Header="Date Posted" DisplayMemberBinding="{Binding DatePosted}" />
+                            <ui:GridViewColumn Header="Education" DisplayMemberBinding="{Binding EducationReq}" />
+                            <ui:GridViewColumn Header="Years of Experience"
+                                               DisplayMemberBinding="{Binding ExperienceReq}" />
+                            <ui:GridViewColumn Header="Location" DisplayMemberBinding="{Binding Location}" />
+                            <ui:GridViewColumn Header="Contract Type" DisplayMemberBinding="{Binding EmploymentType}" />
+                            <ui:GridViewColumn Header="Job Description" DisplayMemberBinding="{Binding Description}" />
+                        </ui:GridView>
+                    </ui:ListView.View>
+                </ui:ListView>
+            </Grid>
         </Grid>
     </Grid>
 </UserControl>
