@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using RTS.Commands;
+using RTS.Models;
 using RTS.Services;
 using RTS.Stores;
 
@@ -11,9 +12,9 @@ public class LoginViewModel : ViewModelBase
 
     private string _password = null!;
 
-    public LoginViewModel(AccountStore accountStore, INavigationService loginNavigationService)
+    public LoginViewModel(AccountStore accountStore, INavigationService loginNavigationService, IDataService<Recruiter> recruiterDataService)
     {
-        LoginCommand = new LoginCommand(this, accountStore, loginNavigationService);
+        LoginCommand = new LoginCommand(this, accountStore, loginNavigationService, recruiterDataService);
     }
 
     public string Email

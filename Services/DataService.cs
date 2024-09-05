@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 using RTS.EntityFramework;
 using RTS.Models;
 
@@ -82,5 +83,13 @@ public class DataService<T> : IDataService<T> where T : BaseEntity
         if (entity != null) context.Set<T>().Remove(entity);
         await context.SaveChangesAsync();
         return true;
+    }
+
+    public async Task<T?> GetByEmail(string email)
+    {
+        await using var context = _recruitmentDbContextFactory.CreateDbContext();
+        IQueryable<T?> query = context.Set<T>();
+
+        return await query.FirstOrDefaultAsync(e => e != null && EF.Property<string>(e, "Email") == email);
     }
 }

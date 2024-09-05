@@ -5,18 +5,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    xmlns:converters="clr-namespace:RTS.Converters"
     mc:Ignorable="d">
-    <UserControl.Resources>
-        <converters:PageToBooleanConverter x:Key="PageToBooleanConverter" />
-    </UserControl.Resources>
     <ui:NavigationView PaneDisplayMode="Top" MinHeight="50"
                        Margin="10 0"
                        IsBackButtonVisible="Collapsed"
                        IsPaneToggleVisible="False">
         <ui:NavigationView.MenuItems>
             <ui:NavigationViewItem Content="Home"
-                                   Command="{Binding NavigateHomeCommand}"
+                                   Command="{Binding NavigateAccountCommand}"
                                    Tag="Home" />
             <ui:NavigationViewItem Content="Candidates"
                                    Command="{Binding NavigateCandidateListingCommand}"
@@ -29,7 +25,8 @@
                                    Tag="Job Applications" />
         </ui:NavigationView.MenuItems>
         <ui:NavigationView.FooterMenuItems>
-            <ui:NavigationViewItem Content="Logout" Command="{Binding LogoutCommand}" />
+            <ui:NavigationViewItem Content="Account" Command="{Binding NavigateAccountCommand}"  Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <ui:NavigationViewItem Content="Logout" Command="{Binding LogoutCommand}" Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}" />
         </ui:NavigationView.FooterMenuItems>
 
     </ui:NavigationView>

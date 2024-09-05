@@ -20,6 +20,7 @@ public partial class App : Application
 
     public App()
     {
+        
         _host = Host.CreateDefaultBuilder()
             .ConfigureAppConfiguration(c =>
             {
@@ -39,6 +40,7 @@ public partial class App : Application
                 services.AddSingleton<IDataService<Vacancy>, DataService<Vacancy>>();
                 services.AddSingleton<IDataService<JobApplication>, DataService<JobApplication>>();
                 services.AddSingleton<IDataService<ApplicationStage>, DataService<ApplicationStage>>();
+                services.AddSingleton<IDataService<Recruiter>, DataService<Recruiter>>();
 
                 services.AddSingleton<RecruitmentDbContextFactory>(s => new RecruitmentDbContextFactory(
                     options => options.UseSqlServer(context.Configuration.GetConnectionString("SqlServer")!)
@@ -77,7 +79,8 @@ public partial class App : Application
                     s.GetRequiredService<AccountStore>(),
                     CreateHomeNavigationService(s),
                     s.GetRequiredService<IDataService<Vacancy>>(),
-                    s.GetRequiredService<IDataService<Candidate>>()
+                    s.GetRequiredService<IDataService<Candidate>>(),
+                    s.GetRequiredService<IDataService<JobApplication>>()
                 ));
 
 
@@ -185,7 +188,7 @@ public partial class App : Application
 
         return new LoginViewModel(
             serviceProvider.GetRequiredService<AccountStore>(),
-            navigationService);
+            navigationService, serviceProvider.GetRequiredService<IDataService<Recruiter>>());
     }
 
     private NavigationBarViewModel CreateNavigationBarViewModel(IServiceProvider serviceProvider)

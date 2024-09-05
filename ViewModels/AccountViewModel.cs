@@ -6,12 +6,17 @@ using RTS.Commands;
 using RTS.Models;
 using RTS.Services;
 using RTS.Stores;
+using System.Linq;
 
 namespace RTS.ViewModels;
 
 public class AccountViewModel : ViewModelBase
 {
     private readonly AccountStore _accountStore;
+    private string _avatar = null!;
+    
+    public string WelcomeMessage => $"Welcome, {_accountStore.CurrentAccount?.Name ?? "User"}";
+
     private readonly IDataService<Vacancy> _vacancyDataService;
     public ICollectionView DashboardVacanciesView { get; }
 
@@ -22,8 +27,15 @@ public class AccountViewModel : ViewModelBase
 
     public ObservableCollection<Candidate> DashboardCandidates { get; }
 
+    private readonly IDataService<JobApplication> _jobApplicationDataService;
+    public ICollectionView DashboardApplicationsView { get; }
+
+    public ObservableCollection<JobApplication> DashboardApplications { get; }
+
+
     public AccountViewModel(AccountStore accountStore, INavigationService homeNavigationService,
-        IDataService<Vacancy> vacancyDataService, IDataService<Candidate> candidateDataService)
+        IDataService<Vacancy> vacancyDataService, IDataService<Candidate> candidateDataService,
+        IDataService<JobApplication> jobApplicationDataService)
     {
         _accountStore = accountStore;
 
@@ -41,13 +53,21 @@ public class AccountViewModel : ViewModelBase
         DashboardCandidates = new ObservableCollection<Candidate>();
         DashboardCandidatesView = CollectionViewSource.GetDefaultView(DashboardCandidates);
 
+        _jobApplicationDataService = jobApplicationDataService;
+
+        DashboardApplications = new ObservableCollection<JobApplication>();
+        DashboardApplicationsView = CollectionViewSource.GetDefaultView(DashboardApplications);
+
         LoadDashboardVacancies();
         LoadDashboardCandidates();
+        LoadDashboardApplications();
+        
+        
     }
-
-
+    
     public string? Email => _accountStore.CurrentAccount?.Email;
     public string? Name => _accountStore.CurrentAccount?.Name;
+    public string? Avatar => _accountStore.CurrentAccount?.Avatar;
 
     public ICommand NavigateHomeCommand { get; }
 
@@ -55,14 +75,15 @@ public class AccountViewModel : ViewModelBase
     {
         OnPropertyChanged(nameof(Email));
         OnPropertyChanged(nameof(Name));
+        OnPropertyChanged(nameof(Avatar));
     }
 
     private async void LoadDashboardVacancies()
     {
         var vacancies = await _vacancyDataService.GetAll();
 
-        // Example: Show only the top 5 most recent vacancies or apply your own logic
-        foreach (var vacancy in vacancies.Take(5))
+
+        foreach (var vacancy in vacancies.Take(6))
         {
             DashboardVacancies.Add(vacancy);
         }
@@ -70,12 +91,24 @@ public class AccountViewModel : ViewModelBase
 
     private async void LoadDashboardCandidates()
     {
-        var candidates = await _candidateDataService.GetAll();
+        var candidates = (await _candidateDataService.GetAll())
+            .Where(c => c.Status == "open" || c.Status == "seeking")
+            .Take(6);
 
-        // Example: Show only the top 5 most recent candidates or apply your own logic
-        foreach (var candidate in candidates.Take(5))
+        foreach (var candidate in candidates)
         {
             DashboardCandidates.Add(candidate);
+        }
+    }
+
+    private async void LoadDashboardApplications()
+    {
+        var jobApplications =
+            await _jobApplicationDataService.GetAll("Vacancy, Candidate, ApplicationStage");
+
+        foreach (var jobApplication in jobApplications.Take(6))
+        {
+            DashboardApplications.Add(jobApplication);
         }
     }
 
@@ -85,4 +118,7 @@ public class AccountViewModel : ViewModelBase
 
         base.Dispose();
     }
+   
+
+   
 }
