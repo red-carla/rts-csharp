@@ -6,15 +6,12 @@ using RTS.Commands;
 using RTS.Models;
 using RTS.Services;
 using RTS.Stores;
-using System.Linq;
-
 namespace RTS.ViewModels;
 
 public class AccountViewModel : ViewModelBase
 {
     private readonly AccountStore _accountStore;
-    private string _avatar = null!;
-    
+
     public string WelcomeMessage => $"Welcome, {_accountStore.CurrentAccount?.Name ?? "User"}";
 
     private readonly IDataService<Vacancy> _vacancyDataService;
@@ -31,12 +28,14 @@ public class AccountViewModel : ViewModelBase
     public ICollectionView DashboardApplicationsView { get; }
 
     public ObservableCollection<JobApplication> DashboardApplications { get; }
-
+    
+    
 
     public AccountViewModel(AccountStore accountStore, INavigationService homeNavigationService,
         IDataService<Vacancy> vacancyDataService, IDataService<Candidate> candidateDataService,
         IDataService<JobApplication> jobApplicationDataService)
     {
+       
         _accountStore = accountStore;
 
         NavigateHomeCommand = new NavigateCommand(homeNavigationService);
@@ -61,14 +60,12 @@ public class AccountViewModel : ViewModelBase
         LoadDashboardVacancies();
         LoadDashboardCandidates();
         LoadDashboardApplications();
-        
-        
     }
-    
+
     public string? Email => _accountStore.CurrentAccount?.Email;
     public string? Name => _accountStore.CurrentAccount?.Name;
     public string? Avatar => _accountStore.CurrentAccount?.Avatar;
-
+    
     public ICommand NavigateHomeCommand { get; }
 
     private void OnCurrentAccountChanged()
@@ -118,7 +115,4 @@ public class AccountViewModel : ViewModelBase
 
         base.Dispose();
     }
-   
-
-   
 }

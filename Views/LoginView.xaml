@@ -20,6 +20,7 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="350" />
@@ -29,9 +30,16 @@
             Grid.Row="0"
             HorizontalAlignment="Center"
             FontSize="28"
+            Margin="0 0 0 20"
             Text="Login" />
+        <ui:Button Grid.Row="1"
+            Width="100"
+            Margin="0 0 0 8"
+            Command="{Binding AddRecruiterCommand}"
+            HorizontalAlignment="Center"
+            Content="Register" />
 
-        <StackPanel Grid.Row="1" Margin="0 20 0 0">
+        <StackPanel Grid.Row="2" Margin="0">
             <StackPanel>
                 <ui:TextBlock Text="Email" />
                 <ui:TextBox Text="{Binding Email}" />
@@ -42,13 +50,21 @@
                 <ui:TextBox Text="{Binding Password}" />
             </StackPanel>
         </StackPanel>
-
-        <ui:Button
-            Grid.Row="2"
-            Margin="0 20 0 0"
-            Padding="5 2"
-            HorizontalAlignment="Left"
-            Command="{Binding LoginCommand}"
-            Content="Login" />
+      
+        <StackPanel
+            Grid.Row="3" Grid.ColumnSpan="3" HorizontalAlignment="Right"
+            Margin="0 8"
+            Orientation="Horizontal">
+           
+            <ui:Button
+                Width="100" Margin="8"
+                Command="{Binding LoginCommand}"
+                Content="Login" />
+            <ui:Button
+                Width="100"
+                Margin="8"
+                Command="{Binding CancelCommand}"
+                Content="Cancel" />
+        </StackPanel>
     </Grid>
 </UserControl>

@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 using RTS.Commands;
 using RTS.Models;
 using RTS.Services;
@@ -8,12 +9,17 @@ namespace RTS.ViewModels;
 public class CandidateDetailViewModel : ViewModelBase
 {
     private readonly IDataService<Candidate> _candidateDataService;
-    private Candidate _candidate;
-    private bool _isEditing;
+     private Candidate _candidate;
+        private bool _isEditing;
+        
+     /*  private readonly IDataService<JobApplication> _jobApplicationDataService;
+    public ObservableCollection<JobApplication> JobApplications { get; private set; }*/
 
-    public CandidateDetailViewModel(IDataService<Candidate> dataService)
+    public CandidateDetailViewModel(IDataService<Candidate> candidateDataService)
     {
-        _candidateDataService = dataService;
+        _candidateDataService = candidateDataService;
+        /*_jobApplicationDataService = jobApplicationDataService;
+        JobApplications = new ObservableCollection<JobApplication>();*/
         EditCommand = new RelayCommand(ToggleEdit, () => true);
         SaveCommand = new RelayCommand(Save, () => IsEditing);
         DeleteCommand = new RelayCommand(Delete, () => true);
@@ -46,8 +52,17 @@ public class CandidateDetailViewModel : ViewModelBase
     public async Task LoadCandidateDetails(int candidateId)
     {
         Candidate = await _candidateDataService.GetById(candidateId);
-        OnPropertyChanged(nameof(Candidate));
+        
+          OnPropertyChanged(nameof(Candidate));
     }
+    
+    /*public async Task LoadJobApplications(int candidateId)
+    {
+        var jobApplications = await _jobApplicationDataService.GetByCondition(j => j.CandidateId == candidateId);
+        foreach (var jobApplication in jobApplications) 
+            JobApplications.Add(jobApplication);
+    }*/
+    
 
     private void ToggleEdit()
     {

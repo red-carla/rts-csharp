@@ -23,11 +23,6 @@ public class Vacancy : BaseEntity
     public int? RandomId { get; set; }
 
     public int? RecruiterId { get; set; }
-    /*
-    public Employer Employer { get; set; } = null!;
-
-    public Recruiter? Recruiter { get; set; } = null!;
-    */
 
     public ICollection<JobApplication> JobApplications { get; set; } = new List<JobApplication>();
 }

@@ -44,7 +44,6 @@
                         <ui:TextBlock Foreground="Black"
                                       Text="Welcome to your dashboard, here you can manage your vacancies and candidates."
                                       TextWrapping="Wrap" FontSize="15" />
-                        <ui:Button Command="{Binding OpenDetailCommand}" Content="View Profile" Margin="0,10,0,0" />
                     </StackPanel>
                 </StackPanel>
             </Grid>

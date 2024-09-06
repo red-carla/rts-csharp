@@ -5,17 +5,17 @@
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:local="clr-namespace:RTS.Components"
     ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
-    ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-    >
+    ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="35" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
-            
+
         </Grid.RowDefinitions>
-        <ui:TitleBar Grid.Row="0" Title="{Binding CurrentViewName}" ></ui:TitleBar>
-        <local:NavigationBar Grid.Row="1" DataContext="{Binding NavigationBarViewModel}" />
+        <ui:TitleBar Grid.Row="0" Title="{Binding CurrentViewName}"></ui:TitleBar>
+        <local:NavigationBar Grid.Row="1" DataContext="{Binding NavigationBarViewModel}"
+                             Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
         <ContentControl
             Grid.Row="2"

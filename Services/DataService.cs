@@ -63,7 +63,6 @@ public class DataService<T> : IDataService<T> where T : BaseEntity
         await context.Set<T>().AddAsync(entity);
         await context.SaveChangesAsync();
 
-        // EntityCreated?.Invoke(entity);
         return entity;
     }
 
@@ -91,5 +90,12 @@ public class DataService<T> : IDataService<T> where T : BaseEntity
         IQueryable<T?> query = context.Set<T>();
 
         return await query.FirstOrDefaultAsync(e => e != null && EF.Property<string>(e, "Email") == email);
+    }
+    public async Task<IEnumerable<T>> GetByCondition(Func<T, bool> condition)
+    {
+        await using var context = _recruitmentDbContextFactory.CreateDbContext();
+        IQueryable<T> query = context.Set<T>();
+
+        return query.Where(condition).ToList();
     }
 }

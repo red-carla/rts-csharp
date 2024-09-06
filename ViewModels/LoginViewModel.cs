@@ -11,10 +11,14 @@ public class LoginViewModel : ViewModelBase
     private string _email = null!;
 
     private string _password = null!;
+    private readonly IDataService<Recruiter> _recruiterDataService;
 
-    public LoginViewModel(AccountStore accountStore, INavigationService loginNavigationService, IDataService<Recruiter> recruiterDataService)
+    public LoginViewModel(AccountStore accountStore, 
+        INavigationService loginNavigationService, IDataService<Recruiter> recruiterDataService, INavigationService addRecruiterNavigationService)
     {
+        _recruiterDataService = recruiterDataService;
         LoginCommand = new LoginCommand(this, accountStore, loginNavigationService, recruiterDataService);
+        AddRecruiterCommand = new NavigateCommand(addRecruiterNavigationService);
     }
 
     public string Email
@@ -38,4 +42,13 @@ public class LoginViewModel : ViewModelBase
     }
 
     public ICommand LoginCommand { get; }
+    public ICommand AddRecruiterCommand { get; }
+
+    public async void OnRecruiterAdded(Recruiter recruiter)
+    {
+        await _recruiterDataService.Create(recruiter);
+        
+    }
+
+
 }

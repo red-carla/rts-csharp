@@ -34,39 +34,39 @@
 
         <StackPanel Grid.Row="1" Margin="10 0">
 
-            <ui:TextBlock Text="{Binding Candidate.Id}" FontSize="16" />
-            <ui:TextBlock Text="{Binding Candidate.Name}" FontSize="14"
+            <ui:TextBlock Text="{Binding Candidate.Id}" FontSize="16"  Margin="5" />
+            <ui:TextBlock Text="{Binding Candidate.Name}" FontSize="14" Margin="5"
                           Visibility="{Binding IsEditing, Converter={StaticResource InverseBoolToVisConverter}}" />
-            <ui:TextBox Text="{Binding Candidate.Name}" FontSize="14"
+            <ui:TextBox Text="{Binding Candidate.Name}" FontSize="14" Margin="5"
                         Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-            <ui:TextBlock Text="{Binding Candidate.Title}" FontSize="14"
+            <ui:TextBlock Text="{Binding Candidate.Title}" FontSize="14" Margin="5"
                           Visibility="{Binding IsEditing, Converter={StaticResource InverseBoolToVisConverter}}" />
-            <ui:TextBox Text="{Binding Candidate.Title}" FontSize="14"
+            <ui:TextBox Text="{Binding Candidate.Title}" FontSize="14" Margin="5"
                         Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-            <ui:TextBlock Text="{Binding Candidate.Email}" FontSize="14"
+            <ui:TextBlock Text="{Binding Candidate.Email}" FontSize="14" Margin="5"
                           Visibility="{Binding IsEditing, Converter={StaticResource InverseBoolToVisConverter}}" />
-            <ui:TextBox Text="{Binding Candidate.Email}" FontSize="14"
+            <ui:TextBox Text="{Binding Candidate.Email}" FontSize="14" Margin="5"
                         Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-            <ui:TextBlock Text="{Binding Candidate.Phone}" FontSize="14"
+            <ui:TextBlock Text="{Binding Candidate.Phone}" FontSize="14" Margin="5"
                           Visibility="{Binding IsEditing, Converter={StaticResource InverseBoolToVisConverter}}" />
-            <ui:TextBox Text="{Binding Candidate.Phone}" FontSize="14"
+            <ui:TextBox Text="{Binding Candidate.Phone}" FontSize="14" Margin="5"
                         Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-            <ui:TextBlock Text="{Binding Candidate.Address}" FontSize="14"
+            <ui:TextBlock Text="{Binding Candidate.Address}" FontSize="14" Margin="5"
                           Visibility="{Binding IsEditing, Converter={StaticResource InverseBoolToVisConverter}}" />
-            <ui:TextBox Text="{Binding Candidate.Address}" FontSize="14"
+            <ui:TextBox Text="{Binding Candidate.Address}" FontSize="14" Margin="5"
                         Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-            <ui:TextBlock Text="{Binding Candidate.ResumeLink}" FontSize="14"
+            <ui:TextBlock Text="{Binding Candidate.ResumeLink}" FontSize="14" Margin="5"
                           Visibility="{Binding IsEditing, Converter={StaticResource InverseBoolToVisConverter}}" />
-            <ui:TextBox Text="{Binding Candidate.ResumeLink}" FontSize="14"
+            <ui:TextBox Text="{Binding Candidate.ResumeLink}" FontSize="14" Margin="5"
                         Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}" />
-            <ui:TextBlock Text="{Binding Candidate.Status}" FontSize="14"
+            <ui:TextBlock Text="{Binding Candidate.Status}" FontSize="14" Margin="5"
                           Visibility="{Binding IsEditing, Converter={StaticResource InverseBoolToVisConverter}}" />
-            <ui:TextBox Text="{Binding Candidate.Status}" FontSize="14"
+            <ui:TextBox Text="{Binding Candidate.Status}" FontSize="14" Margin="5"
                         Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}" />
             <StackPanel
                 Margin="0 20 0 0"

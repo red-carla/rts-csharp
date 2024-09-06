@@ -8,7 +8,10 @@ public static class AddSeederHostBuilder
 {
     public static IHostBuilder AddDatabaseSeeder(this IHostBuilder host)
     {
-        host.ConfigureServices((context, services) => { services.AddHostedService<DatabaseSeederService>(); });
+        host.ConfigureServices((context, services) =>
+        {
+            services.AddHostedService<DatabaseSeederService>();
+        });
 
         return host;
     }

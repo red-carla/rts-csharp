@@ -20,15 +20,9 @@ public partial class App : Application
 
     public App()
     {
-        
         _host = Host.CreateDefaultBuilder()
-            .ConfigureAppConfiguration(c =>
-            {
-                c.AddJsonFile("appsettings.json");
-                c.AddEnvironmentVariables();
-            })
+            .AddConfiguration()
             .AddDbContext()
-            .AddDatabaseSeeder()
             .ConfigureServices((context, services) =>
             {
                 services.AddTransient<DatabaseSeeder>();
@@ -42,10 +36,6 @@ public partial class App : Application
                 services.AddSingleton<IDataService<ApplicationStage>, DataService<ApplicationStage>>();
                 services.AddSingleton<IDataService<Recruiter>, DataService<Recruiter>>();
 
-                services.AddSingleton<RecruitmentDbContextFactory>(s => new RecruitmentDbContextFactory(
-                    options => options.UseSqlServer(context.Configuration.GetConnectionString("SqlServer")!)
-                ));
-
                 services.AddSingleton(CreateHomeNavigationService);
                 services.AddSingleton<CloseModalNavigationService>();
 
@@ -55,12 +45,22 @@ public partial class App : Application
 
                 services.AddTransient<CandidateListingViewModel>(s => new CandidateListingViewModel(
                     CreateAddCandidateNavigationService(s), s.GetRequiredService<IDataService<Candidate>>()));
+                
+                services.AddTransient<LoginViewModel>(s => new LoginViewModel(
+                    s.GetRequiredService<AccountStore>(),
+                    CreateAccountNavigationService(s),
+                    s.GetRequiredService<IDataService<Recruiter>>(),
+                    CreateAddRecruiterNavigationService(s)
+                ));
 
                 services.AddTransient<AddCandidateViewModel>(s => new AddCandidateViewModel(
                     s.GetRequiredService<IDataService<Candidate>>(),
                     s.GetRequiredService<CloseModalNavigationService>()
                 ));
-
+                services.AddTransient<AddRecruiterViewModel>(s => new AddRecruiterViewModel(
+                    s.GetRequiredService<IDataService<Recruiter>>(),
+                    s.GetRequiredService<CloseModalNavigationService>()
+                ));
                 services.AddTransient<VacancyListingViewModel>(s => new VacancyListingViewModel(
                     CreateAddVacancyNavigationService(s), s.GetRequiredService<IDataService<Vacancy>>()));
 
@@ -82,8 +82,7 @@ public partial class App : Application
                     s.GetRequiredService<IDataService<Candidate>>(),
                     s.GetRequiredService<IDataService<JobApplication>>()
                 ));
-
-
+                
                 services.AddTransient<AddJobApplicationViewModel>(s => new AddJobApplicationViewModel(
                     s.GetRequiredService<IDataService<JobApplication>>(),
                     s.GetRequiredService<IDataService<Candidate>>(),
@@ -122,16 +121,23 @@ public partial class App : Application
 
     private INavigationService CreateLoginNavigationService(IServiceProvider serviceProvider)
     {
-        return new ModalNavigationService<LoginViewModel>(
-            serviceProvider.GetRequiredService<ModalNavigationStore>(),
-            serviceProvider.GetRequiredService<LoginViewModel>);
+        return new LayoutNavigationService<LoginViewModel>(
+            serviceProvider.GetRequiredService<NavigationStore>(),
+            serviceProvider.GetRequiredService<LoginViewModel>,
+            serviceProvider.GetRequiredService<NavigationBarViewModel>);
     }
-
+   
     private INavigationService CreateAddCandidateNavigationService(IServiceProvider serviceProvider)
     {
         return new ModalNavigationService<AddCandidateViewModel>(
             serviceProvider.GetRequiredService<ModalNavigationStore>(),
             serviceProvider.GetRequiredService<AddCandidateViewModel>);
+    }
+    private INavigationService CreateAddRecruiterNavigationService(IServiceProvider serviceProvider)
+    {
+        return new ModalNavigationService<AddRecruiterViewModel>(
+            serviceProvider.GetRequiredService<ModalNavigationStore>(),
+            serviceProvider.GetRequiredService<AddRecruiterViewModel>);
     }
 
     private INavigationService CreateAddJobApplicationNavigationService(IServiceProvider serviceProvider)
@@ -185,10 +191,10 @@ public partial class App : Application
         var navigationService = new CompositeNavigationService(
             serviceProvider.GetRequiredService<CloseModalNavigationService>(),
             CreateAccountNavigationService(serviceProvider));
-
         return new LoginViewModel(
             serviceProvider.GetRequiredService<AccountStore>(),
-            navigationService, serviceProvider.GetRequiredService<IDataService<Recruiter>>());
+            navigationService, serviceProvider.GetRequiredService<IDataService<Recruiter>>(),
+            CreateAddRecruiterNavigationService(serviceProvider));
     }
 
     private NavigationBarViewModel CreateNavigationBarViewModel(IServiceProvider serviceProvider)

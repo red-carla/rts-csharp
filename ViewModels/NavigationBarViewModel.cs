@@ -25,7 +25,7 @@ public class NavigationBarViewModel : ViewModelBase
         NavigateCandidateListingCommand = new NavigateCommand(candidateListingNavigationService, () => CurrentPage = "Candidates");
         NavigateVacancyListingCommand = new NavigateCommand(vacancyListingNavigationService, () => CurrentPage = "Vacancies");
         NavigateJobApplicationListingCommand = new NavigateCommand(jobApplicationListingNavigationService, () => CurrentPage = "Job Applications");
-        LogoutCommand = new LogoutCommand(_accountStore);
+        LogoutCommand = new LogoutCommand(_accountStore, homeNavigationService);
 
         _accountStore.CurrentAccountChanged += OnCurrentAccountChanged;
     }

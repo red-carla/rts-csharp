@@ -21,11 +21,10 @@ namespace RTS.Services
             return StringComparer.OrdinalIgnoreCase.Compare(hashOfInput, storedHash) == 0;
         }
 
-        public static void GenerateAndDisplayHash(string password)
+        public static string GenerateAndReturnHash(string password)
         {
             string hashedPassword = ComputeHash(password);
-            Console.WriteLine($"Password: {password}");
-            Console.WriteLine($"Hashed Password (SHA256): {hashedPassword}");
+            return hashedPassword;
         }
     }
 }

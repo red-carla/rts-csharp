@@ -54,6 +54,9 @@
             <DataTemplate DataType="{x:Type viewmodels:AddJobApplicationViewModel}">
                 <views:AddJobApplicationView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:AddRecruiterViewModel}">
+                <views:AddRecruiterView />
+            </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:LayoutViewModel}">
                 <components:Layout />
             </DataTemplate>

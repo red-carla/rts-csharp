@@ -13,8 +13,4 @@ public class Recruiter : BaseEntity
     [StringLength(255)] public string? Avatar { get; set; }
 
     public int? RandomId { get; set; }
-    
-   //  public virtual ICollection<Vacancy> Vacancies { get; set; } = new List<Vacancy>(); 
-     
-    public virtual ICollection<JobApplication> JobApplications { get; set; } = new List<JobApplication>();
 }

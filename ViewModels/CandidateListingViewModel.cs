@@ -49,6 +49,7 @@ public class CandidateListingViewModel : ViewModelBase
     {
         var detailViewModel = new CandidateDetailViewModel(_candidateDataService);
         await detailViewModel.LoadCandidateDetails(SelectedCandidate.Id);
+        /*await detailViewModel.LoadJobApplications(SelectedCandidate.Id);*/
 
         var detailView = new CandidateDetailView
         {

@@ -11,4 +11,6 @@ public interface IDataService<T>
     Task<T> Update(int id, T entity);
     Task<bool> Delete(int id);
     Task<T?> GetByEmail(string email);
+    /*Task<IEnumerable<T>> GetByCandidateId(int candidateId);*/
+    Task<IEnumerable<T>> GetByCondition(Func<T, bool> condition);
 }
